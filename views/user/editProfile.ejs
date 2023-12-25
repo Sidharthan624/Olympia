@@ -1,0 +1,45 @@
+<%- include('../layout/userHeader.ejs') %>
+
+<div class="w-50 container my-5">
+    <div class="card-body d-flex ">
+           
+        <form class="mx-5" method="POST" action="/editProfile"   enctype="multipart/form-data">
+        <aside class="col-lg-2 my-5">
+            <figure class="text-lg-center">
+                <img class="img-lg mb-3 img-avatar" id="previewImage" src="/assets/imgs/profilePic/<%=user.image %>" alt="User Photo">
+                <figcaption>
+                    <label for="fileUpload" class="btn btn-light rounded font-md">
+                        <i class="icons material-icons md-backup font-md"></i> Upload
+                    </label>
+                    <input type="file" name="image" id="fileUpload" style="display: none;" >
+                </figcaption>
+            </figure>
+        </aside>
+ 
+            <table>
+                <tr>
+                    <td><strong> Name <span class="required"></span></strong></td>
+                    <td><input type="text" name="name" value="<%= user.name %>"></td>
+                </tr>
+    
+                <tr>
+                    <td><strong>Email Address <span class="required"></span></strong></td>
+                    <td><input type="email" name="email" value="<%= user.email %>"></td>
+                </tr>
+    
+                <tr>
+                    <td><strong>Mobile No. <span class="required"></span></strong></td>
+                    <td><input type="text" name="mobile" value="<%= user.mobile %>"></td>
+                </tr>
+            </table>
+    
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-info">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<%- include('../layout/userFooter.ejs') %>

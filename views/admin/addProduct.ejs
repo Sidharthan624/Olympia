@@ -1,0 +1,351 @@
+<%- include('../layout/adminHeader.ejs') %>
+<form action="" method="post" enctype="multipart/form-data" id="product-form"
+    onsubmit="return validationChecking()">
+
+    <section class="content-main">
+        <div class="row">
+            <div class="col-9">
+                <div class="content-header">
+                    <h2 class="content-title">Add New Product</h2>
+                    <div>
+                        <a href='admin/product'> <button
+                                class="btn btn-light rounded font-sm mr-5 text-body hover-up">cancel</button></a>
+                        <input type="submit" class="btn btn-md rounded font-sm hover-up" value="Upload"
+                            >
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <label for="product_title" class="form-label">Product title</label>
+                            <input type="text" placeholder="Type here" name="name" class="form-control"
+                                id="product_title">
+                            <div class="error-message" style="color: red;" id="product_title-error"></div>
+
+                        </div>
+                        <div class="row gx-3">
+                            <div class="col-md-6  mb-3">
+                                <label for="product_sku" class="form-label">Brand</label>
+                                <input type="text" placeholder="Type here" name="brand" class="form-control"
+                                    id="product_brand">
+                                <div class="error-message" style="color: red;" id="product_brand-error"></div>
+
+                            </div>
+                            <div class="col-md-6  mb-3">
+                                <label for="inputPassword4" class="form-label">category</label>
+                                <select name="categoryData" class="form-control">
+                                    <option value="" disabled selected>Select a Category
+                                    </option>
+                                    <% categories?.forEach(category=> { %>
+                                        <option id="category" value="<%= category._id %>">
+                                            <%= category.name %>
+                                        </option>
+                                        <% }); %>
+
+
+
+                                </select>
+                                <div class="error-message" style="color: red;" id="category-error"></div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+                </div> <!-- card end// -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row gx-3">
+                            <div class="col-md-6">
+                                <label for="inputPrice" class="form-label">price</label>
+                                <input type="text" class="form-control" name="price" id="inputprice"
+                                    placeholder="enter the price">
+                                <div class="error-message" style="color: red;" id="product_price-error"></div>
+                            </div>
+
+
+
+                            <div class="col-md-6  mb-3">
+
+                                <label class="form-label">Discount Price</label>
+
+                                <input type="number" name="discountPrice" placeholder="Type here"
+                                    class="form-control" id="product_discount">
+                                <div class="error-message" style="color: red;" id="product_discount-error"></div>
+
+
+
+                            </div>
+
+                            <div class="col-md-6  mb-3">
+                                <label class="form-label">Product Color</label>
+                                <input type="text" name="productColour" placeholder="Type here" class="form-control"
+                                    id="product_color">
+                                <div class="error-message" style="color: red;" id="product_color-error"></div>
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <label for="inputAddress2" class="form-label">gender</label>
+                                <select name="gender" class="form-control">
+                                    <option value="" disabled selected>Select a Category
+                                    </option>
+                                    <%# gender?.forEach(value=> { %>
+                                        <option id="gender" value="<%#= value %>">
+                                            <%#= value %>
+                                        </option>
+                                        <%# }); %>
+                                </select>
+                                <div class="error-message" style="color: red;" id="gender-error"></div>
+                            </div> -->
+
+                        </div>
+                        <div class="row gx-3">
+                            <div class="col-md-12 card mb-4">
+                                <div class="card-body">
+
+                                    <div class="size-container">
+                                        
+                                           
+                                       
+
+
+                                        
+                                        <!-- Add Product Images Here -->
+                                    </div>
+                                    <label for="stockInput">Enter Stock Quantity:</label>
+<input type="number" id="stockInput" name="stockInput" min="0" placeholder="Enter quantity" required>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div>
+                            <label class="form-label">Description</label>
+                            <textarea placeholder="Type here" name="description" class="form-control"
+                                rows="4" id="description"></textarea>
+                            <div class="error-message" style="color: red;" id="description-error"></div>
+
+                        </div>
+                    </div>
+                </div> <!-- card end// -->
+
+            </div>
+            <div class="col-lg-3">
+
+                <div class="card mb-4">
+                    <div class="card-body">
+            
+                        <div class="images-container">
+                            <!-- Add Product Images Here -->
+                        </div>
+                        <button type="button" class="btn btn-primary mb-3" onclick="addImage()">Add Image</button>
+                       
+                        
+                    </div>
+                </div>
+            
+                <script>
+
+let sizeCount = 0;
+
+function addSize() {
+sizeCount++;
+const container = document.querySelector('.size-container');
+const sizeDiv = document.createElement('div');
+sizeDiv.classList.add('row', 'my-1');
+
+sizeDiv.innerHTML = `
+
+<div class="col-5">
+<label for="stock${sizeCount}">Stock:</label>
+<input type="text" name="sizes[${sizeCount}][stock]" placeholder="Type here" class="form-control" id="stock${sizeCount}">
+</div>
+<div class="col-2 mt-4">
+<button type="button" class="btn btn-danger " onclick="removeSize(this)">Remove</button>
+</div>
+`;
+
+container.appendChild(sizeDiv);
+}
+                    let imageCount = 0;
+            
+                    function addImage() {
+                        imageCount++;
+                        const container = document.querySelector('.images-container');
+                        const imageDiv = document.createElement('div');
+                        imageDiv.classList.add('mb-4');
+                        imageDiv.innerHTML = `
+                            <label class="form-label">Image ${imageCount}</label>
+                            <div class="image-container">
+                                <img src="" alt="" id="image-preview${imageCount}" style="max-width: 100%">
+                            </div>
+                            <input class="form-control" name="image" type="file" onchange="displayImage(${imageCount}, this)">
+                            <div class="col-2 mt-4">
+                            <button type="button" class="btn btn-danger" onclick="removeImage(this)">Remove</button>
+                        </div>
+                        `;
+                        container.appendChild(imageDiv);
+                    }
+            
+                    function displayImage(imageNumber, input) {
+                        const preview = document.getElementById(`image-preview${imageNumber}`);
+            
+                        if (input.files && input.files[0]) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                preview.src = e.target.result;
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                        } else {
+                            preview.src = '';
+                        }
+                    }
+                </script>
+                <div id="invalid">
+                    <% if (typeof error !=='undefined' && error) { %>
+                        <p style="color: rgb(144, 5, 5);" id="message">
+                            <%= error %>
+                        </p>
+                        <% } %>
+                                      
+                </div>
+            </div>
+            <div id="invalid">
+                <% if (typeof message !=='undefined' && message) { %>
+                    <p style="color: rgb(8, 96, 0);" id="message">
+                        <%= message %>
+                    </p>
+                    <% } %>
+                                  
+            </div>
+        </div> <!-- card end// -->
+        </div>
+
+        </div>
+    </section>
+</form>
+
+                        <script>
+                            
+                            function removeSize(button) {
+        const container = document.querySelector('.size-container');
+        const sizeDiv = button.parentElement // Get the parent div containing the size and stock fields.
+        container.removeChild(sizeDiv); // Remove the parent div from the container.
+    }
+    function removeImage(button) {
+    const container = document.querySelector('.images-container');
+    const imageDiv = button.closest('.mb-4'); // Use closest to find the closest ancestor with the specified class
+    if (imageDiv) {
+        container.removeChild(imageDiv); // Remove the parent div from the container.
+    } else {
+        console.error("Parent div not found!");
+    }
+}
+
+                        
+
+
+
+
+
+
+
+                    
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const product_title = document.getElementById("product_title");
+    const product_title_error = document.getElementById("product_title-error");
+    const brand = document.getElementById("product_brand");
+    const brand_error = document.getElementById("product_brand-error");
+    const category = document.getElementById("category");
+    const category_error = document.getElementById("category-error");
+    const price = document.getElementById("inputprice");
+    const price_error = document.getElementById("product_price-error");
+    const discount_price = document.getElementById("product_discount");
+    const discount_price_error = document.getElementById("product_discount-error");
+    const product_color = document.getElementById("product_color");
+    const product_color_error = document.getElementById("product_color-error");
+    const gender = document.getElementById("gender");
+    const gender_error = document.getElementById("gender-error");
+    const description = document.getElementById("description");
+    const description_error = document.getElementById("description-error");
+
+    product_title.addEventListener('input', () => {
+        product_title_error.innerHTML = product_title.value.trim() === "" ? "please enter product name" : "";
+    });
+
+    brand.addEventListener('input', () => {
+        brand_error.innerHTML = brand.value.trim() === "" ? "please enter brand" : "";
+    });
+
+    price.addEventListener('input', () => {
+        price_error.innerHTML = price.value.trim() === "" ? "please enter price" : "";
+    });
+
+    discount_price.addEventListener('input', () => {
+        discount_price_error.innerHTML = discount_price.value.trim() === "" ? "please enter discount price" : "";
+    });
+
+    product_color.addEventListener('input', () => {
+        product_color_error.innerHTML = product_color.value.trim() === "" ? "please enter product color" : "";
+    });
+
+    gender.addEventListener('input', () => {
+        gender_error.innerHTML = gender.value.trim() === "" ? "please select gender" : "";
+    });
+
+    description.addEventListener('input', () => {
+        description_error.innerHTML = description.value.trim() === "" ? "please enter description" : "";
+    });
+});
+
+function validationChecking() {
+    const product_title = document.getElementById("product_title").value;
+    const brand = document.getElementById("product_brand").value;
+    const category = document.getElementById("category").value;
+    const price = document.getElementById("inputprice").value;
+    const discount_price = document.getElementById("product_discount").value;
+    const product_color = document.getElementById("product_color").value;
+    const gender = document.getElementById("gender").value;
+    const description = document.getElementById("description").value;
+
+    const product_title_error = document.getElementById("product_title-error");
+    const brand_error = document.getElementById("product_brand-error");
+    const category_error = document.getElementById("category-error");
+    const price_error = document.getElementById("product_price-error");
+    const discount_price_error = document.getElementById("product_discount-error");
+    const product_color_error = document.getElementById("product_color-error");
+    const gender_error = document.getElementById("gender-error");
+    const description_error = document.getElementById("description-error");
+
+    product_title_error.innerHTML = product_title.trim() === "" ? "please enter product name" : "";
+    brand_error.innerHTML = brand.trim() === "" ? "please enter brand" : "";
+    category_error.innerHTML = category.trim() === "" ? "please select category" : "";
+    price_error.innerHTML = price.trim() === "" ? "please enter price" : "";
+    discount_price_error.innerHTML = discount_price.trim() === "" ? "please enter discount price" : "";
+    product_color_error.innerHTML = product_color.trim() === "" ? "please enter product color" : "";
+    gender_error.innerHTML = gender.trim() === "" ? "please select gender" : "";
+    description_error.innerHTML = description.trim() === "" ? "please enter description" : "";
+
+    return !(product_title.trim() === "" || brand.trim() === "" || category.trim() === "" || price.trim() === "" || discount_price.trim() === "" || product_color.trim() === "" || gender.trim() === "" || description.trim() === "");
+}
+
+</script>
+
+
+
+
+
+    <%- include('../layout/adminFooter.ejs') %>

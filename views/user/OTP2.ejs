@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= locals.title %></title>
+    <meta name="description" content="<%= locals.description %>" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/userassets/imgs/theme/favicon.svg"
+    />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/style.css" />
+    
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    
+  </head>
+
+
+
+  <main class="main">
+
+    <section class="pt-150 pb-150 my-5">
+        <div class="container w-50" >
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                      <div class="col-lg-3"></div>
+                      <div class="col-lg-6">
+                        <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
+                            <div class="padding_eight_all bg-white">
+                                  <div class="heading_s1 text-center">
+                                      <h3 class="mb-30">OTP VERIFICATION</h3>
+                                  </div>
+                                 
+                                  <div id="timer-container" class="mt-4 text-center">
+                                      <span id="timer">Time remaining: 20 seconds</span>
+                                  </div>
+                                  <form action="/forgotOTP" method="POST" id="otpForm" >
+                                  <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+                                      <input class="m-2 text-center form-control rounded" type="text" name="first" maxlength="1"  />
+                                      <input class="m-2 text-center form-control rounded" type="text" name="second" maxlength="1"  />
+                                      <input class="m-2 text-center form-control rounded" type="text" name="third" maxlength="1"  />
+                                      <input class="m-2 text-center form-control rounded" type="text" name="fourth" maxlength="1"  />
+                                  </div>
+                               
+                                
+                                <div class="mt-4 text-center">
+                                    <button type="submit" class="btn btn-primary px-4 validate">Submit</button>
+                                </div>
+                                <div class="text-center">
+                                  <a href="/resendotp" class="text-decoration-none" id="ResendButton" style="display: none;">Resend OTP</a>
+
+                                </div>
+                                
+                              <% if (typeof message !== 'undefined') { %>
+                                <p class="text-danger"><%= message %> </p>
+                                <% } %>
+
+                              
+                            </form>
+                       
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+                
+                
+              </div>
+          </div>
+      </div>
+  </section>
+</main>
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+crossorigin="anonymous">
+</script>
+
+<script>
+
+  
+
+document.addEventListener('DOMContentLoaded', function () {
+        const resendButton = document.getElementById('ResendButton');
+        const timerElement = document.getElementById('timer');
+
+        let timerSeconds = 20;
+
+        function updateTimer() {
+            timerElement.textContent = `Time remaining: ${timerSeconds} seconds`;
+        }
+
+        function startTimer() {
+            const timerInterval = setInterval(() => {
+                timerSeconds--;
+                updateTimer();
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    showResendButton();
+                }
+            }, 1000);
+        }
+
+        function showResendButton() {
+            resendButton.style.display = 'inline'; // Show the Resend button
+            resendButton.addEventListener('click', handleResendClick);
+        }
+
+        function handleResendClick(event) {
+            event.preventDefault();
+            // Implement your Resend logic here
+            // ...
+            // For example, you can simulate sending an OTP request to the server
+            console.log('Resending OTP...');
+            // Reset timer and hide Resend button
+            resetTimer();
+            resendButton.style.display = 'none';
+        }
+
+        function resetTimer() {
+            timerSeconds = 20;
+            updateTimer();
+            startTimer();
+        }
+
+        
+
+        // Initialize the timer and Resend button visibility
+        startTimer();
+        updateTimer();
+    });
+    
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+</html>

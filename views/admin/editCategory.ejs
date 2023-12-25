@@ -1,0 +1,81 @@
+<%- include('../layout/adminHeader.ejs') %>
+
+<form action="/admin/editCategory" method="post" enctype="multipart/form-data">
+
+        <section class="content-main">
+            <div class="row">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Edit category Category</h2>
+                        
+   
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                  
+                    <div class="card mb-4">
+                       
+                        <div class="card-header">
+                            <h4>Basic</h4>
+                        </div>
+                        <input type="hidden" name="category_id" value="<%= category._id %>" >
+                        <div class="card-body">
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Category </label>
+                                    <input type="text"  name="name" placeholder="Type here" value="<%= category.name %>" class="form-control" >
+                                    
+                                    
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Full description</label>
+                                    <textarea  name="description" placeholder="Type here" class="form-control" rows="4"><%= category.description %></textarea>
+                                </div>
+                               
+                               
+                            
+                        </div>
+                    </div> <!-- card end// -->
+                    
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Picture</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="/assets/imgs/category/<%= category.image %>" alt="">
+                                <input class="form-control" value="<%= category.image %>" type="file" name="image" >
+                            </div>
+                        </div>
+                    </div> <!-- card end// -->
+                    
+                    <div>
+                  
+                        <input type="submit"  value="submit" class="btn btn-md rounded font-sm hover-up" >
+                    </div>
+                
+                    <div id="invalid">
+                        <% if (typeof error !== 'undefined' && error) { %>
+                            <p style="color: rgb(144, 5, 5);" id="message"><%= error %></p>
+                        <% } %>
+                                </div>  
+                    </div> 
+                    <div id="invalid">
+                        <% if (typeof message !== 'undefined' && message) { %>
+                            <p style="color: rgb(8, 96, 0);" id="message"><%= message %></p>
+                        <% } %>
+                                </div> 
+                 
+                </div> 
+                </div>
+          
+
+      
+        </section> <!-- content-main end// -->
+    </form>
+
+        
+        
+    <%- include('../layout/adminFooter.ejs') %>

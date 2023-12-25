@@ -1,0 +1,127 @@
+<%- include('../layout/adminHeader.ejs') %>
+
+<form action="/admin/addCategory" method="post" enctype="multipart/form-data" id="category-form" onsubmit="return validationChecking()">
+    <section class="content-main">
+        <div class="row">
+            <div class="col-9">
+                <div class="content-header">
+                    <h2 class="content-title">Add New Category</h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Basic</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <label for="category_name" class="form-label">Category name</label>
+                            <input type="text" name="name" placeholder="Type here" class="form-control" id="category_name">
+                            <div class="error-message" style="color: red;" id="category_name-error">
+                                
+                            <% if(typeof(error)!="undefined"){ %>
+                                <p><%=error%></p>
+    
+                               <% } %>
+                               
+                            
+                            </div>
+
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Full description</label>
+                            <textarea name="description" id="description" placeholder="Type here" class="form-control" rows="4"></textarea>
+                            <div class="error-message" style="color: red;" id="description-error"></div>
+                        </div>
+                    </div>
+                </div> <!-- card end// -->
+            </div>
+            <div class="col-lg-3">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Picture</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-upload">
+                            <img src="" style="width:100px; height: 100px;" alt="" id="image-preview">
+                            <input class="form-control" type="file" name="image" id="category_image" onchange="displayImage(this)">
+                            <div class="error-message" style="color: red;" id="category_image-error"></div>
+                           
+                        </div>
+                    </div>
+                    
+                </div> <!-- card end// -->
+                <div>
+                    <input type="submit" value="submit" class="btn btn-md rounded font-sm hover-up "  onchange="displayImage(this)">
+                </div>
+            </div>
+        </div>
+    </section> <!-- content-main end// -->
+</form>
+
+<!-- validate category form -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const category_name = document.getElementById("category_name")
+      const category_name_error = document.getElementById("category_name-error")
+      const description = document.getElementById("description")
+      const description_error = document.getElementById("description-error")
+      const category_image = document.getElementById("category_image")
+      const category_image_error = document.getElementById("category_image-error")
+  
+      category_name.addEventListener('input', () => {
+        category_name_error.innerHTML = category_name.value.trim() === "" ? "please enter category name" : ""
+      })
+  
+      description.addEventListener('input', () => {
+        description_error.innerHTML = description.value.trim() === "" ? "please enter category description" : ""
+      })
+  
+      category_image.addEventListener('input', () => {
+        category_image_error.innerHTML = category_image.value.trim() === "" ? "please add image" : ""
+      })
+    })
+  
+    function validationChecking() {
+      const category_name = document.getElementById("category_name").value
+      const description = document.getElementById("description").value
+      const category_image = document.getElementById("category_image").value
+  
+      const category_name_error = document.getElementById("category_name-error")
+      const description_error = document.getElementById("description-error")
+      const category_image_error = document.getElementById("category_image-error")
+  
+      category_name_error.innerHTML = category_name.trim() === "" ? "please enter category name" : ""
+      description_error.innerHTML = description.trim() === "" ? "please enter category description" : ""
+      category_image_error.innerHTML = category_image.trim() === "" ? "please add image" : ""
+  
+      return !(category_name.trim() === "" || description.trim() === "" || category_image.trim() === "")
+  
+    }
+
+   
+
+    
+    
+
+    function displayImage(input) {
+        const preview = document.getElementById(`image-preview`);
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '';
+        }
+    }
+</script>
+  
+
+
+
+
+
+    <%- include('../layout/adminFooter.ejs') %>

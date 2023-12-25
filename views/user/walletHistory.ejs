@@ -1,0 +1,38 @@
+<%- include('../layout/userHeader.ejs') %>
+<h4 class="text-center my-3">Wallet History</h4>
+<div class="container w-50 my-2"><table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Order Date</th>
+      <th>Delivery Date</th>
+      <th>Status</th>
+      <th>Credited</th>
+      <th>Debited</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% orders.forEach(function(order_data) { %>
+      <tr>
+        <td><%= order_data._id %></td>
+        <td><%= new Date(order_data.orderDate).toLocaleDateString() %></td>
+        <td><%= new Date(order_data.deliveryDate).toLocaleDateString() %></td>
+        <td><%= order_data.status %></td>
+        <% if (order_data.status === 'Confirmed') { %>
+          <td>0</td> <!-- Credited amount is zero when status is Confirmed -->
+          <td><%= order_data.totalAmount %></td> <!-- Debited amount is totalAmount when status is Confirmed -->
+        <% } else { %>
+          <td><%= order_data.totalAmount %></td> <!-- Credited amount is totalAmount for other statuses -->
+          <td>0</td> <!-- Debited amount is zero for other statuses -->
+        <% } %>
+        <td><a href="/orderDetails/<%= order_data._id%>" class="btn-small d-block">View</a></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+</div>
+
+
+
+<%- include('../Layout/UserFooter.ejs') %>

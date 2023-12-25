@@ -1,0 +1,55 @@
+<%- include('../layout/adminHeader.ejs') %>
+<section class="content-main">
+    <div class="content-header">
+        <h2 class="content-title">Coupon Management</h2>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row gx-5">
+                <div class="col-lg-12">
+                    <section class="content-body p-xl-4">
+                        <!-- Coupon Table -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Coupon Code</th>
+                                    <th>Discount Percentage</th>
+                                    <th>Status</th>
+                                    <th>Expiry Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Sample coupon row, replace with dynamic data -->
+                               <%for (const coupon of coupons){%>
+                                <tr>
+                                    <td><%= coupon.couponCode %></td>
+                                    <td><%= coupon.discountPercentage %></td>
+                                    <td><%= coupon.status %></td>
+                                    <td><%= coupon.expiryDate %></td>
+                                    <td>
+                                        <% if (coupon.status=="Active") { %>
+
+                                            <a href="/admin/unlistCoupon/?id=<%= coupon._id %>"> <button class="btn btn-danger">Unlist</button></a>
+                                         
+                                        <% }else{%>
+
+                                            <a href="/admin/unlistCoupon/?id=<%= coupon._id %>"> <button class="btn btn-success">List</button></a>
+
+                                        <%} %>
+                                        
+                                       
+                                    </td>
+                                </tr>
+
+                               <%}%>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </section> <!-- content-body .// -->
+                </div> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card-body .//end -->
+    </div> <!-- card .//end -->
+</section> <!-- content-main end// -->
+<%- include('../layout/adminFooter.ejs') %>

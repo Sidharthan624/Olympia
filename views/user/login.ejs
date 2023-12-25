@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= locals.title %></title>
+    <meta name="description" content="<%= locals.description %>" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body class="">
+    
+   
+
+    <div class="container-fluid"  style="
+    background-image: linear-gradient(
+      to right,
+      rgb(61, 57, 57),
+      rgb(136, 136, 130)
+    );
+  ">
+      <div
+        class="row w-75 mx-auto py-5"
+        style="height: 100vh"
+      >
+        <div class="col-6 h-100 bg-white d-flex  align-items-center">
+          <div class="col-1">
+
+          </div>
+          <div class="col-10 ">
+            <div class="text-center my-5 ">
+              <h3>WELCOME TO OLYMPIA</h3>
+            </div>
+          
+            <!-- <div class="mt-5 ">
+
+              <button type="button" class="btn brder border-secondary w-100">
+                <i class="bi bi-google gradient-icon" ></i> Continue With Google
+              </button>
+            <div class="my-4">
+             <p class="text-center m-0">or</p>
+              <hr class="m-0">
+            </div>  
+       
+            </div> -->
+            <form action="/login" class="" method="post" onsubmit="return validateForm()">
+              <div>
+                  <div class="mb-4 ">
+                      <input
+                          type="email"
+                          class="ms-1 form-control"
+                          id="email"
+                          name="email"
+                          onblur="validateEmail()"
+                          placeholder="Enter Email"
+                      />
+                      <div
+                          id="erroremail"
+                          class="ms-2 text-danger"
+                      ></div>
+                  </div>
+          
+                  <div class="mb-4 ">
+                      <input
+                          type="password"
+                          class="ms-1 form-control"
+                          id="password"
+                          name="password"
+                          onblur="validatePassword()"
+                          placeholder="Enter Password"
+                      />
+                      <div
+                          id="errorpassword"
+                          class="ms-2 text-danger"
+                      ></div>
+                  </div>
+              </div>
+          
+              <div class="">
+                  <button type="submit" class="btn btn-outline-dark w-100 rounded-pill">
+                      Login
+                  </button>
+              </div>
+          </form>
+            <p class="mt-3 text-center">Already have an account? <a href="/register">Register </a></p>
+            <p class="mt-3 text-center"><a href="/forgotPassword">Forgot Password?</a></p>
+
+            <% if (typeof message !== 'undefined') { %>
+
+              <p class="text-center text-danger"><%=message%></p>
+
+              <%}%>
+          </div>
+          <div class="col-1">
+            
+
+          </div>
+        </div>
+        <div
+          class="col-5  p-0 "  
+          style="
+          background-image: linear-gradient(
+            to right,
+            #515256,
+            #A29B65
+          );
+        "
+        >
+          <img src="/images/zidane.jpg" class="w-100 h-100 " alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function validateEmail() {
+          let emailId = document.getElementById("email").value;
+          let errorEmail = document.getElementById("erroremail");
+  
+          if (!/\S+@\S+\.\S+/.test(emailId)) {
+              errorEmail.innerHTML = "Please enter a valid email address";
+              return false;
+          } else {
+              errorEmail.innerHTML = "";
+              return true;
+          }
+      }
+  
+      function validatePassword() {
+          let password = document.getElementById("password").value;
+          let errorPassword = document.getElementById("errorpassword");
+  
+          if (password.length < 8) {
+              errorPassword.innerHTML = "Password must be at least 8 characters long";
+              return false;
+          } else {
+              errorPassword.innerHTML = "";
+              return true;
+          }
+      }
+  
+      function validateForm() {
+          // Call your validation functions
+          const isEmailValid = validateEmail();
+          const isPasswordValid = validatePassword();
+  
+          // Check if any validation failed
+          if (!isEmailValid || !isPasswordValid) {
+              // Returning false prevents the form from being submitted
+              return false;
+          }
+  
+          // If all validations pass, the form will be submitted
+          return true;
+      }
+  </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
