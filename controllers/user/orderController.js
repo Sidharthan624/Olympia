@@ -242,6 +242,15 @@ const placeOrder = async (req, res) => {
         }
 
         const cartItems = cart.items || [];
+        const insufficientStockItem = cartItems.find((cartItem) => {
+            return cartItem.quantity > cartItem.product.stock;
+        });
+
+        if (insufficientStockItem) {
+            const errorMessage = `Insufficient stock for ${insufficientStockItem.product.name}`;
+            return res.status(400).json({ success: false, error: errorMessage });
+            // You can also use swal or any other method to display the error to the user on the frontend
+        }
 
         // Calculate totalAmount
         const totalAmount = cartItems.reduce(
@@ -309,6 +318,7 @@ const placeOrder = async (req, res) => {
             cartItems.forEach(async (cartItem) => {
                 const product = cartItem.product;
                 product.stock -= cartItem.quantity;
+                product.sale_price=0
                 await product.save();
             });
         }

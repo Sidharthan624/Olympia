@@ -311,6 +311,20 @@ const loadHome=async (req,res)=>{
         console.log(error.msg);
     }
 }
+const loadAboutus = async (req,res)=>{
+    try {
+        res.render('user/aboutus.ejs')
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const loadContactUs = async (req,res)=>{
+    try {
+        res.render('user/contactus')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 const listItems = async (req, res) => {
     try {
         const userData = req.session.user_id;
@@ -356,10 +370,11 @@ const listItems = async (req, res) => {
         res.render('user/shop', {
             user: userData,
             products: productData.docs,
-            category: categoryData,
+            categories: categoryData,
             selectedCategory: selectedCategory, 
             totalPages:totalPages,
-            currentPage:productData.page
+            currentPage:productData.page,
+            sort:sort
         });
     } catch (error) {
         console.log(error);
@@ -587,7 +602,9 @@ const addAddress = async (req, res) => {
   
 const userLogout = async (req,res)=>{
     try {
+        const user = req.session.user_id
         req.session.destroy()
+        console.log(user);
         res.redirect('/login')
     } catch (error) {
         console.log(error.message)
@@ -621,7 +638,9 @@ editProfile,
 updateProfile,
 loadEditPassword,
 editPassword,
-walletHistory
+walletHistory,
+loadAboutus,
+loadContactUs
 
 
 

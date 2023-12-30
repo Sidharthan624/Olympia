@@ -2,6 +2,7 @@ const Coupon =require('../../models/couponModel')
 const Product = require('../../models/couponModel')
 const User = require('../../models/userModel')
 const Cart = require('../../models/cartModel')
+const moment = require('moment')
 const addCouponForm = async (req,res)=>{
     try {
        res.render('admin/addCoupon') 
@@ -21,11 +22,19 @@ const addCoupon = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Coupon code already exists.' });
         }
 
-        // Coupon code does not exist, proceed with adding the coupon
+        // Check if the expiry date is less than the current date
+        const currentDate = moment();
+        const parsedExpiryDate = moment(expiryDate);
+
+        if (parsedExpiryDate.isBefore(currentDate)) {
+            return res.status(400).json({ success: false, message: 'Expiry date must be in the future.' });
+        }
+
+        // Coupon code does not exist, and expiry date is valid, proceed with adding the coupon
         const coupon = new Coupon({
             couponCode,
             discountPercentage,
-            expiryDate
+            expiryDate: parsedExpiryDate.toDate() // Convert back to JavaScript Date object if needed
         });
 
         await coupon.save();
@@ -38,6 +47,7 @@ const addCoupon = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 };
+
 
 
 const couponsList = async (req,res)=>{

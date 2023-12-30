@@ -8,11 +8,11 @@ const orderController = require('../controllers/admin/orderController')
 const couponController = require('../controllers/admin/couponController')
 const adminAuth = require('../middlewares/adminAuth')
 
-adminRoute.get('/',adminController.loadAdminLogin)
+adminRoute.get('/',adminAuth.isLogout,adminController.loadAdminLogin)
 adminRoute.post('/',adminController.verifyLogin)
 adminRoute.get('/logout',adminController.adminLogout)
 
-adminRoute.get('/home',adminController.loadHome)
+adminRoute.get('/home',adminAuth.isLogin,adminController.loadHome)
 
 //add category
 

@@ -22,11 +22,13 @@ userRoute.get('/editPassword',userAuth.isLogin,userController.loadEditPassword)
 userRoute.post('/editPassword',userAuth.isLogin,userController.editPassword)
 
 //login
-userRoute.get('/login',userController.loadLogin)
+userRoute.get('/login',userAuth.isLogout,userController.loadLogin)
 userRoute.post('/login',userController.verifyLogin)
 
 //home
 userRoute.get('/',userController.loadHome)
+userRoute.get('/aboutus',userController.loadAboutus)
+userRoute.get('/contactus',userAuth.isLogin,userController.loadContactUs)
 userRoute.get('/shop',userAuth.isLogin,userController.listItems)
 userRoute.get('/productDetails',userAuth.isLogin,userController.productDetails)
 
@@ -49,7 +51,7 @@ userRoute.post('/editProfile',multer.uploadProfilePic.single('image'),userContro
 
 userRoute.get('/cart',userAuth.isLogin,cartController.loadCart)
 userRoute.post('/cart',cartController.addToCart)
-userRoute.post('/updateCartItemQuantity', cartController.updateCartItemQuantity)
+userRoute.post('/updateCart', cartController.updateCart)
 userRoute.delete('/removeCartItem',cartController.removeFromCart)
 
 //checkout
@@ -70,5 +72,5 @@ userRoute.get('/walletHistory',userAuth.isLogin,userController.walletHistory)
 
 
 // logout
-userRoute.get('/logout',userAuth.isLogin,userController.userLogout)
+userRoute.get('/logout',userController.userLogout)
 module.exports=userRoute

@@ -49,7 +49,7 @@
 
                             <div class="col-lg-6 col-md-6 ms-auto text-md-end">
                                 <% if (order.status=="Confirmed"|| order.status=="Shipped") { %>
-                                    <a  class="btn bg-danger" href="/orderCancel?id=<%= order._id %>">Cancel</a>
+                                    <a  class="btn bg-danger" href="/orderCancel?id=<%= order._id %>" data-order-id="<%= order._id %>" >Cancel</a>
                                  
                                 <% }else if(order.status=="Delivered"){%>
     
@@ -147,7 +147,8 @@
                                                         <%=item.quantity %>
                                                     </td>
                                                     <td class="text-end">
-                                                        ₹<%= order.totalAmount %>
+                                                        ₹<%= (item.quantity*item.product.sale_price ? item.product.sale_price : item.product.discount_price) %>
+
                                                     </td>
                                                 </tr>
                                                 <% 

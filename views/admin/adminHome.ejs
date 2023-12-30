@@ -100,23 +100,35 @@
   
     <div class="row">
       <div class="col-xl-8 col-lg-12">
-          <div class="card mb-4">
-              <article class="card-body">
-                  <h5 class="card-title">Sale statistics</h5>
-                  <input type="hidden" value="<%= monthlyOrderCounts %>" id="monthlySalesArray" />
-                  <input type="hidden" value="<%= dailyOrderCounts %>" id="dailyOrderArray" />
-                 
-              
-                  <input type="hidden" value="<%= yearlyOrderCounts %>" id="yearlyOrderCounts" />
-             
-                  <button class="btn btn-xs   btn btn-sm btn-light font-xs rounded" onclick="displayChart('Weekly', this)">Weekly</button>
-                  <button class="btn btn-sm btn-light font-xs rounded" onclick="displayChart('Monthly', this)">Monthly</button>
-                  <button class="btn btn-sm btn-light font-xs rounded" onclick="displayChart('Yearly', this)">Yearly</button>
-                  <canvas id="myChartWeekly" height="120px"></canvas>
-                  <canvas id="myChartMonthly" height="120px" style="display: none;"></canvas>
-                  <canvas id="myChartYearly" height="120px" style="display: none;"></canvas>
-              </article>
+        <div class="card mb-4">
+            <article class="card-body">
+              <h5 class="card-title">Sale statistics</h5>
+              <input type="hidden" value="<%= monthlyOrderCounts %>" id="monthlySalesArray" />
+              <input type="hidden" value="<%= dailyOrderCounts %>" id="dailyOrderArray" />
+              <input type="hidden" value="<%= yearlyOrderCounts %>" id="yearlyOrderCounts" />
+              <input type="hidden" value="<%= JSON.stringify(categoryNames) %>" id="categoryNames" />
+              <input type="hidden" value="<%= JSON.stringify(categoryDataArray) %>" id="categoryDataArray" />
+
+          
+              <div class="d-flex justify-content-end mb-2">
+                <!-- Add button for Category Wise Sales in the top right corner -->
+                <button class="btn btn-sm btn-light font-xs rounded" onclick="displayChart('Category', this)">Category wise sales</button>
+              </div>
+          
+              <button class="btn btn-xs btn btn-sm btn-light font-xs rounded" onclick="displayChart('Weekly', this)">Weekly</button>
+              <button class="btn btn-sm btn-light font-xs rounded" onclick="displayChart('Monthly', this)">Monthly</button>
+              <button class="btn btn-sm btn-light font-xs rounded" onclick="displayChart('Yearly', this)">Yearly</button>
+          
+              <canvas id="myChartWeekly" height="120px"></canvas>
+              <canvas id="myChartMonthly" height="120px" style="display: none;"></canvas>
+              <canvas id="myChartYearly" height="120px" style="display: none;"></canvas>
+              <!-- Add a canvas for Category Wise Sales chart -->
+              <canvas id="myChartCategory" height="120px" style="display: none;"></canvas>
+            </article>
           </div>
+          
+          
+          
          
       </div>
       <div class="col-xl-4 col-lg-12">
@@ -205,39 +217,110 @@
   </section> <!-- content-main end// -->
   <script>
     // Functions to display respective charts
-    function displayChart(chartType, button) {
-    highlightButton(button);
+//     function displayChart(chartType, button) {
+//     highlightButton(button);
   
-    if (chartType === 'Weekly') {
-        showChart('myChartWeekly');
-        hideChart('myChartMonthly');
-        hideChart('myChartYearly');
-    } else if (chartType === 'Monthly') {
-        hideChart('myChartWeekly');
-        showChart('myChartMonthly');
-        hideChart('myChartYearly');
-    } else if (chartType === 'Yearly') {
-        hideChart('myChartWeekly');
-        hideChart('myChartMonthly');
-        showChart('myChartYearly');
+//     if (chartType === 'Weekly') {
+//         showChart('myChartWeekly');
+//         hideChart('myChartMonthly');
+//         hideChart('myChartYearly');
+//     } else if (chartType === 'Monthly') {
+//         hideChart('myChartWeekly');
+//         showChart('myChartMonthly');
+//         hideChart('myChartYearly');
+//     } else if (chartType === 'Yearly') {
+//         hideChart('myChartWeekly');
+//         hideChart('myChartMonthly');
+//         showChart('myChartYearly');
+//     }
+//   }
+  
+//   function showChart(chartId) {
+//     document.getElementById(chartId).style.display = 'block';
+//   }
+  
+//   function hideChart(chartId) {
+//     document.getElementById(chartId).style.display = 'none';
+//   }
+  
+//   function highlightButton(button) {
+  
+//     const buttons = document.querySelectorAll('.btn');
+//     buttons.forEach(btn => btn.classList.remove('btn-xs'));
+  
+//     button.classList.add('btn-xs');
+//   }
+
+
+  // Function to display the chart based on the selected type
+  function displayChart(chartType, button) {
+    // Hide all charts and show the selected one
+    const chartTypes = ['Weekly', 'Monthly', 'Yearly', 'Category'];
+    chartTypes.forEach(type => {
+      const chart = document.getElementById(`myChart${type}`);
+      if (chart) {
+        chart.style.display = chartType === type ? 'block' : 'none';
+      }
+    });
+
+    // Update the active state of the buttons
+    chartTypes.forEach(type => {
+      const buttonElement = document.querySelector(`button[data-chart-type="${type}"]`);
+      if (buttonElement) {
+        buttonElement.classList.remove('active');
+      }
+    });
+
+    button.classList.add('active');
+
+    // Render or update the chart based on the selected type
+    switch (chartType) {
+      case 'Weekly':
+        renderWeeklyChart();
+        break;
+      case 'Monthly':
+        renderMonthlyChart();
+        break;
+      case 'Yearly':
+        renderYearlyChart();
+        break;
+      case 'Category':
+        renderCategoryChart();
+        break;
+      default:
+        console.error('Invalid chart type');
     }
   }
-  
-  function showChart(chartId) {
-    document.getElementById(chartId).style.display = 'block';
+
+  // Function to render or update the category-wise chart
+  function renderCategoryChart() {
+    const categoryNames = JSON.parse(document.getElementById('categoryNames').value);
+    const categoryDataArray = JSON.parse(document.getElementById('categoryDataArray').value);
+
+    const ctxCategory = document.getElementById('myChartCategory').getContext('2d');
+    const myChartCategory = new Chart(ctxCategory, {
+      type: 'bar',
+      data: {
+        labels: categoryNames,
+        datasets: [{
+          label: 'Category-wise Sales',
+          data: categoryDataArray.map(item => item.count),
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
-  
-  function hideChart(chartId) {
-    document.getElementById(chartId).style.display = 'none';
-  }
-  
-  function highlightButton(button) {
-  
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(btn => btn.classList.remove('btn-xs'));
-  
-    button.classList.add('btn-xs');
-  }
+
+
   
   
   </script>  

@@ -1,4 +1,506 @@
-<%- include('../layout/userHeader.ejs') %>
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:20:36 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Olympia-Online Sports Store</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAAB3CAMAAAAO5y+4AAAAY1BMVEX///8AAAD7+/v29vZ4eHjq6urz8/Ovr69sbGzh4eHU1NQbGxvv7+/n5+eampq7u7uJiYlLS0siIiKTk5ODg4NDQ0MnJycwMDBZWVmpqanKyso4ODhQUFBiYmIUFBSgoKALCwtOwkDAAAADe0lEQVRoge1a2aKqMAxUFhFQUVHEDfn/r7zqVY9OCiQpykvnmXRKtqZJRyMHBwcHBwcHBwPiKA9OxfiBY7lZZOG3OZPLamzENPoed5zXZtL/2EaTb7AeTm2kd9RB3Ddr0s16R9CrumcBj/WKdN8f7aHo5vtDOe+JdilhvaLOeqFlWvYdC3tW7yinvbqXLa2/09Be84jl3251tLZ/XDb8TX4IvTvibNlg/4sFrdGTy8z/1EmYG33goKbNTKyJ4UN/v6Zf1trUNU/JWlXU8O3EkNHOSt4pWWnVkvcjSty0yXYcqI691u/JKZmqNE2SctkhkJCNaoJpj4scO0WohhTnMVmDUU0QG8vTFlmCFY7EFcU/jHmZZyoPeZdCWvSRdMaTQzVVrSFAsQF5drZFPQlrAJDesUtUzK2ypIURISggMOxFvKDmWlCqoYUlisbjXhKGIZwmEo8OYc+ioxRqhVogCs7BDSKjMCfPPQHmlWW7uFIb+PwpKSyV4KqaswUnEPzCJKvW1lxvoRvAwN3n5xOQnE/CHBvDttnisGFp1RBCccmOhvxTTnqWeeBYpsrXCKhJxWUhhAM7kKBqEBf+IM8OQ9gvW09PQCCxAxgyrLgKXuj8w4Mbnt8t8om9jtcHfxSGLzmCN1zerSWvMv4drxBK+w7lz0PF72D5quf8zO7QBkq5J7Tn0VDnL8TBz+qNoeorvKb8qp60rJ/BLQVmAocUts9Xamm7+xH07QTh3+t9UJDeZyAqylhgpEIgOtR9HxvtlaC/gX1NUSMJ22aCGzA2sCS0tH/Fdg70KmFnFCca7DPJsl+HOVbbn0xltKMRDqx42c4HKUFz4wEyw2EpDPvPilkODnEqxqlEZgPcEvYNpOGumC9I+povkOFb5zyFDHKkFZJ59x3ElLbQPaygo7ddi5sQ24pj94mJYdjYlD8mZ/qtevZMNT0eb01noncxfLkW36teWBiWG28z8NIkNyhGcb15g/m9SHrKsySeh+E8TqKgYRSvG4Y+4BnM9tLjrqAD4hcsn1L4itcbN6gi157YmnZE6jQObN4y/CHvJvqE/iXDJxJjnDThrI9bhMf/5aqfx0hPxPRxgxG5uOnUhaSbuchFFxou5k2PGO9Iy+wr7wnviPel6WFUdZxi0u4dXpJdglWxTm9YF0W52R96f77Yxu9f8UM+BwcHhyHxD9Y6J6cROREFAAAAAElFTkSuQmCC">
+    <!-- Template CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets1/css/main.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+   
+    
+</head>
+
+<body>
+    <!-- Modal -->
+    
+
+    <!-- Quick view -->
+    <div class="modal fade custom-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">              
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>       
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="detail-gallery">
+                                <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                <!-- MAIN SLIDES -->
+                                <div class="product-image-slider">
+                                    <figure class="border-radius-10">
+                                        <img src="assets1/imgs/shop/product-16-2.jpg" alt="product image">
+                                    </figure>
+                                    <figure class="border-radius-10">
+                                        <img src="assets1/imgs/shop/product-16-1.jpg" alt="product image">
+                                    </figure>
+                                    <figure class="border-radius-10">
+                                        <img src="assets1/imgs/shop/product-16-3.jpg" alt="product image">
+                                    </figure>
+                                    <figure class="border-radius-10">
+                                        <img src="assets1/imgs/shop/product-16-4.jpg" alt="product image">
+                                    </figure>
+                                    <figure class="border-radius-10">
+                                        <img src="assets1/imgs/shop/product-16-5.jpg" alt="product image">
+                                    </figure>
+                                    <figure class="border-radius-10">
+                                        <img src="assets1/imgs/shop/product-16-6.jpg" alt="product image">
+                                    </figure>
+                                    <figure class="border-radius-10">
+                                        <img src="assets1/imgs/shop/product-16-7.jpg" alt="product image">
+                                    </figure>
+                                </div>
+                                <!-- THUMBNAILS -->
+                                <div class="slider-nav-thumbnails pl-15 pr-15">
+                                    <div><img src="assets1/imgs/shop/thumbnail-3.jpg" alt="product image"></div>
+                                    <div><img src="assets1/imgs/shop/thumbnail-4.jpg" alt="product image"></div>
+                                    <div><img src="assets1/imgs/shop/thumbnail-5.jpg" alt="product image"></div>
+                                    <div><img src="assets1/imgs/shop/thumbnail-6.jpg" alt="product image"></div>
+                                    <div><img src="assets1/imgs/shop/thumbnail-7.jpg" alt="product image"></div>
+                                    <div><img src="assets1/imgs/shop/thumbnail-8.jpg" alt="product image"></div>
+                                    <div><img src="assets1/imgs/shop/thumbnail-9.jpg" alt="product image"></div>
+                                </div>
+                            </div>
+                            <!-- End Gallery -->
+                            <div class="social-icons single-share">
+                                <ul class="text-grey-5 d-inline-block">
+                                    <li><strong class="mr-10">Share this:</strong></li>
+                                    <li class="social-facebook"><a href="#"><img src="assets1/imgs/theme/icons/icon-facebook.svg" alt=""></a></li>
+                                    <li class="social-twitter"> <a href="#"><img src="assets1/imgs/theme/icons/icon-twitter.svg" alt=""></a></li>
+                                    <li class="social-instagram"><a href="#"><img src="assets1/imgs/theme/icons/icon-instagram.svg" alt=""></a></li>
+                                    <li class="social-linkedin"><a href="#"><img src="assets1/imgs/theme/icons/icon-pinterest.svg" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="detail-info">
+                                <h3 class="title-detail mt-30">Colorful Pattern Shirts HD450</h3>
+                                <div class="product-detail-rating">
+                                    <div class="pro-details-brand">
+                                        <span> Brands: <a href="shop-grid-right.html">Bootstrap</a></span>
+                                    </div>
+                                    <div class="product-rate-cover text-end">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:90%">
+                                            </div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (25 reviews)</span>
+                                    </div>
+                                </div>
+                                <div class="clearfix product-price-cover">
+                                    <div class="product-price primary-color float-left">
+                                        <ins><span class="text-brand">$120.00</span></ins>
+                                        <ins><span class="old-price font-md ml-15">$200.00</span></ins>
+                                        <span class="save-price  font-md color3 ml-15">25% Off</span>
+                                    </div>
+                                </div>
+                                <div class="bt-1 border-color-1 mt-15 mb-15"></div>
+                                <div class="short-desc mb-30">
+                                    <p class="font-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem officia, corrupti reiciendis minima nisi modi,!</p>
+                                </div>
+                                
+                                <div class="attr-detail attr-color mb-15">
+                                    <strong class="mr-10">Color</strong>
+                                    <ul class="list-filter color-filter">
+                                        <li><a href="#" data-color="Red"><span class="product-color-red"></span></a></li>
+                                        <li><a href="#" data-color="Yellow"><span class="product-color-yellow"></span></a></li>
+                                        <li class="active"><a href="#" data-color="White"><span class="product-color-white"></span></a></li>
+                                        <li><a href="#" data-color="Orange"><span class="product-color-orange"></span></a></li>
+                                        <li><a href="#" data-color="Cyan"><span class="product-color-cyan"></span></a></li>
+                                        <li><a href="#" data-color="Green"><span class="product-color-green"></span></a></li>
+                                        <li><a href="#" data-color="Purple"><span class="product-color-purple"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="attr-detail attr-size">
+                                    <strong class="mr-10">Size</strong>
+                                    <ul class="list-filter size-filter font-small">
+                                        <li><a href="#">S</a></li>
+                                        <li class="active"><a href="#">M</a></li>
+                                        <li><a href="#">L</a></li>
+                                        <li><a href="#">XL</a></li>
+                                        <li><a href="#">XXL</a></li>
+                                    </ul>
+                                </div>
+                                <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                                <div class="detail-extralink">
+                                    <div class="detail-qty border radius">
+                                        <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+                                        <span class="qty-val">1</span>
+                                        <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                    </div>
+                                    <div class="product-extra-link2">
+                                        <button type="submit" class="button button-add-to-cart">Add to cart</button>
+                                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                        <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                                    </div>
+                                </div>
+                                <ul class="product-meta font-xs color-grey mt-50">
+                                    <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
+                                    <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a href="#" rel="tag">Women</a>, <a href="#" rel="tag">Dress</a> </li>
+                                    <li>Availability:<span class="in-stock text-success ml-5">8 Items In Stock</span></li>
+                                </ul>
+                            </div>
+                            Detail Info 
+                        </div>
+                    </div>
+                </div>        
+        </div>
+        </div>
+    </div>
+  
+    
+    <header class="header-area header-style-1 header-height-2">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                                <li><i class="fi-rs-marker"></i><a  href="page-contact.html">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        
+                    </div>
+                    <!-- <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <li>
+                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li><a href="#"><img src="assets1/imgs/theme/flag-fr.png" alt="">Français</a></li>
+                                        <li><a href="#"><img src="assets1/imgs/theme/flag-dt.png" alt="">Deutsch</a></li>
+                                        <li><a href="#"><img src="assets1/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
+                                    </ul>
+                                </li>
+                                <li><i class="fi-rs-user"></i><a href="page-login-register.html">Log In / Sign Up</a></li>
+                            </ul>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="/"><img src="/images/olympia logo.png" alt="logo"></a>
+                        <!-- <p>Online Sports Store</p> -->
+                    </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <div class="search-style-2">
+                                <form action="/shop" method="get" id="filterForm">
+                                    <select class="select-active" name="category_name" onchange="updateFilter()">
+                                       <option value="all">All Categories</option> 
+                                        <% for(const category of categories) { %>
+                                            <option value="<%= category._id %>" <%= selectedCategory === category._id.toString() ? 'selected' : '' %>><%= category.name %></option>
+                                        <% } %>
+                                    </select>
+                                    <input type="text" placeholder="Search for items..." id="searchProducts">
+                                    <button type="submit"></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                                <!-- <div class="header-action-icon-2">
+                                    <a href="shop-wishlist.html">
+                                        <img class="svgInject" alt="Evara" src="assets1/imgs/theme/icons/icon-heart.svg">
+                                        <span class="pro-count blue"></span>
+                                    </a>
+                                </div> -->
+                                <div class="header-action-icon-2 " >
+                                    <a class="mini-cart-icon" href="/cart">
+                                        <img alt="Evara" src="assets1/imgs/theme/icons/icon-cart.svg" class="my-2">
+                                        <h6>Cart</h6>
+                                        <!-- <span class="pro-count blue"></span> -->
+                                    </a>
+                                    
+                                    
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap position-relative d-flex justify-content-center ">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="index.html"><img src="assets1/imgs/theme/logo.svg" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+                        
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block container ">
+                            <nav>
+                                <ul>
+                                    <li><a class="active" href="/">Home </a>
+                                        
+                                    </li>
+                                    <li>
+                                        <a href="/aboutus">About</a>
+                                    </li>
+                                    <li><a href="/shop">Shop </a>
+                                        
+                                    </li>
+                                    
+                                    
+                                    <li><a href="/contactus">Contact </i></a>
+                                        
+                                    </li>
+                                    <li>
+                                        <a href="/myAccount"> My Account</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%</p>
+                    <div class="header-action-right d-block d-lg-none">
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="shop-wishlist.html">
+                                    <img alt="Evara" src="assets1/imgs/theme/icons/icon-heart.svg">
+                                    <span class="pro-count white">4</span>
+                                </a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" href="shop-cart.html">
+                                    <img alt="Evara" src="assets1/imgs/theme/icons/icon-cart.svg">
+                                    <span class="pro-count white">2</span>
+                                </a>
+                                <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                    <ul>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara" src="assets1/imgs/shop/thumbnail-3.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Plain Striola Shirts</a></h4>
+                                                <h3><span>1 × </span>$800.00</h3>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara" src="assets1/imgs/shop/thumbnail-4.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
+                                                <h3><span>1 × </span>$3500.00</h3>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="shopping-cart-footer">
+                                        <div class="shopping-cart-total">
+                                            <h4>Total <span>$383.00</span></h4>
+                                        </div>
+                                        <div class="shopping-cart-button">
+                                            <a href="shop-cart.html">View cart</a>
+                                            <a href="shop-checkout.html">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header-action-icon-2 d-block d-lg-none">
+                                <div class="burger-icon burger-icon-white">
+                                    <span class="burger-icon-top"></span>
+                                    <span class="burger-icon-mid"></span>
+                                    <span class="burger-icon-bottom"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="index.html"><img src="assets1/imgs/theme/logo.svg" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a></li>
+                                <li> <a href="shop-grid-right.html"><i class="evara-font-smartphone"></i> Cellphones</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer & Office</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Consumer Electronics</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-teddy-bear"></i>Mother & Kids</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-kite"></i>Outdoor fun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="index.html">Home</a>
+                                <ul class="dropdown">
+                                    <li><a href="index.html">Home 1</a></li>
+                                    <li><a href="index-2.html">Home 2</a></li>
+                                    <li><a href="index-3.html">Home 3</a></li>
+                                    <li><a href="index-4.html">Home 4</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="shop-grid-right.html">shop</a>
+                                <ul class="dropdown">
+                                    <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
+                                    <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
+                                    <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
+                                    <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
+                                    <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
+                                            <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
+                                            <li><a href="shop-product-full.html">Product – No sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="shop-filter.html">Shop – Filter</a></li>
+                                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                    <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                    <li><a href="shop-checkout.html">Shop – Checkout</a></li>
+                                    <li><a href="shop-compare.html">Shop – Compare</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Mega menu</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Women's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Dresses</a></li>
+                                            <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                            <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="shop-product-right.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Men's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Jackets</a></li>
+                                            <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                            <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Tablets</a></li>
+                                            <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                            <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog-category-fullwidth.html">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
+                                    <li><a href="blog-category-list.html">Blog Category List</a></li>
+                                    <li><a href="blog-category-big.html">Blog Category Big</a></li>
+                                    <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product Layout</a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-post-left.html">Left Sidebar</a></li>
+                                            <li><a href="blog-post-right.html">Right Sidebar</a></li>
+                                            <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="page-about.html">About Us</a></li>
+                                    <li><a href="page-contact.html">Contact</a></li>
+                                    <li><a href="page-account.html">My Account</a></li>
+                                    <li><a href="page-login-register.html">login/register</a></li>
+                                    <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                    <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a href="page-terms.html">Terms of Service</a></li>
+                                    <li><a href="page-404.html">404 Page</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a  href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="page-login-register.html">Log In / Sign Up </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="assets1/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets1/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets1/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets1/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets1/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -46,16 +548,24 @@
                                       <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                   </div>
                                   <div class="sort-by-dropdown-wrap">
-                                      <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                      <span>  <i class="fi-rs-angle-small-down"></i></span>
                                   </div>
                               </div>
                               <div class="sort-by-dropdown">
-                                  <ul>
-                                      <li><a class="active" href="#">Featured</a></li>
-                                      <li><a href="/shop?sort=asc">Price: Low to High</a></li>
-                                      <li><a href="/shop?sort=desc">Price: High to Low</a></li>
-                                      
-                                  </ul>
+                                <ul>
+                                    <li>
+                                        <a 
+                                           href="/shop">Featured</a>
+                                    </li>
+                                    <li>
+                                        <a class="<%= sort === 'asc' ? 'active' : '' %>"
+                                           href="/shop<%= selectedCategory ? `?category_name=${selectedCategory}&` : '?' %>sort=asc">Price: Low to High</a>
+                                    </li>
+                                    <li>
+                                        <a class="<%= sort === 'desc' ? 'active' : '' %>"
+                                           href="/shop<%= selectedCategory ? `?category_name=${selectedCategory}&` : '?' %>sort=desc">Price: High to Low</a>
+                                    </li>
+                                </ul>
                               </div>
                           </div>
                       </div>
@@ -99,7 +609,7 @@
                                     <div class="product-action-1 show">
                                         <input type="hidden" value="<%= product._id %>" name="productData_id"> 
                                         <input type="hidden" value="1" name="qty">
-                                        <button type="submit" aria-label="Add To Cart" class="action-btn hover-up" >
+                                        <button type="button" aria-label="Add To Cart" class="action-btn hover-up" onclick="submitForm()" >
                                             <i class="fi-rs-shopping-bag-add"></i>
                                         </button>
                                     </div>
@@ -118,126 +628,39 @@
                   </div>
                   <!--pagination-->
                   <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                      <nav aria-label="Page navigation example">
+                    <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-start">
                             <% for (let i = 1; i <= totalPages; i++) { %>
                                 <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                                    <a class="page-link" href="/shop?page=<%= i %>"><%= i %></a>
+                                    <a class="page-link" href="/shop?page=<%= i %><%= selectedCategory ? `&category_name=${selectedCategory}` : '' %><%= sort ? `&sort=${sort}` : '' %>"><%= i %></a>
                                 </li>
                             <% } %>
                         </ul>
-                      </nav>
-                  </div>
-              </div>
-              <div class="col-lg-3 primary-sidebar sticky-sidebar">
-                  <div class="widget-category mb-30">
-                      <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                      <ul class="categories">
-                        <li><a href="/shop">All</a></li>
-                          
-                          <% for(const categories of category){ %>
-                            
+                    </nav>
+                </div>                
+             
+      </div>
 
-                            <li><a href="/shop/?category_name=<%= categories._id %>"><%=categories.name%></a></li>
+      <div class="col-lg-3 primary-sidebar sticky-sidebar ">
+        <div class="widget-category mb-30">
+            <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
+            <ul class="categories">
+              <li><a href="/shop">All</a></li>
+              
+                  <% for(const category of categories) { %>
+                      <li>
+                          <a class="<%= selectedCategory === category._id.toString() ? 'active' : '' %>"
+                             href="/shop<%= category._id === selectedCategory ? '' : `?category_name=${category._id}` %>&sort=<%= sort %>">
+                             <%= category.name %>
+                          </a>
+                      </li>
+                  <% } %>
+              
+            </ul>
+        </div>
+        
 
-
-
-                            <% } %>
-                      </ul>
-                  </div>
-                  <!-- Fillter By Price -->
-                  <!-- <div class="sidebar-widget price_range range mb-30">
-                      <div class="widget-header position-relative mb-20 pb-10">
-                          <h5 class="widget-title mb-10">Fill by price</h5>
-                          <div class="bt-1 border-color-1"></div>
-                      </div>
-                      <div class="price-filter">
-                          <div class="price-filter-inner">
-                              <div id="slider-range"></div>
-                              <div class="price_slider_amount">
-                                  <div class="label-input">
-                                      <span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price" />
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="list-group">
-                          <div class="list-group-item mb-10 mt-10">
-                              <label class="fw-900">Color</label>
-                              <div class="custome-checkbox">
-                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                  <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
-                                  <br>
-                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="">
-                                  <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
-                                  <br>
-                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
-                                  <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
-                              </div>
-                              <label class="fw-900 mt-15">Item Condition</label>
-                              <div class="custome-checkbox">
-                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
-                                  <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
-                                  <br>
-                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="">
-                                  <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
-                                  <br>
-                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="">
-                                  <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
-                              </div>
-                          </div>
-                      </div>
-                      <a href="shop-grid-right.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
-                  </div> -->
-                  <!-- Product sidebar Widget -->
-                  <!-- <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10"> -->
-                      <!-- <div class="widget-header position-relative mb-20 pb-10">
-                          <h5 class="widget-title mb-10">New products</h5>
-                          <div class="bt-1 border-color-1"></div>
-                      </div> -->
-                      <!-- <div class="single-post clearfix">
-                          <div class="image">
-                              <img src="assets/imgs/shop/thumbnail-3.jpg" alt="#">
-                          </div>
-                          <div class="content pt-10">
-                              <h5><a href="shop-product-detail.html">Chen Cardigan</a></h5>
-                              <p class="price mb-0 mt-5">$99.50</p>
-                              <div class="product-rate">
-                                  <div class="product-rating" style="width:90%"></div>
-                              </div>
-                          </div>
-                      </div> -->
-                      <!-- <div class="single-post clearfix">
-                          <div class="image">
-                              <img src="assets/imgs/shop/thumbnail-4.jpg" alt="#">
-                          </div>
-                          <div class="content pt-10">
-                              <h6><a href="shop-product-detail.html">Chen Sweater</a></h6>
-                              <p class="price mb-0 mt-5">$89.50</p>
-                              <div class="product-rate">
-                                  <div class="product-rating" style="width:80%"></div>
-                              </div>
-                          </div>
-                      </div> -->
-                      <!-- <div class="single-post clearfix">
-                          <div class="image">
-                              <img src="assets/imgs/shop/thumbnail-5.jpg" alt="#">
-                          </div>
-                          <div class="content pt-10">
-                              <h6><a href="shop-product-detail.html">Colorful Jacket</a></h6>
-                              <p class="price mb-0 mt-5">$25</p>
-                              <div class="product-rate">
-                                  <div class="product-rating" style="width:60%"></div>
-                              </div>
-                          </div>
-                      </div>
-                  </div> -->
-                  <!-- <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
-                      <img src="assets/imgs/banner/banner-11.jpg" alt="">
-                      
-                  </div> -->
-              <!-- </div> -->
-          </div>
+</div>
       </div>
   </section>
 </main>
@@ -270,10 +693,19 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.tagName === "A") {
             event.preventDefault();
 
+            // Extract the page number from the href attribute
             const page = event.target.getAttribute("href").split("=")[1];
 
-            // Fetch products for the selected page using AJAX
-            fetch(`/shop?page=${page}`)
+            // Extract the current filtering and sorting parameters from the current URL
+            const currentURL = window.location.href;
+            const categoryMatch = currentURL.match(/category_name=([^&]*)/);
+            const sortMatch = currentURL.match(/sort=([^&]*)/);
+
+            const categoryParam = categoryMatch ? `&category_name=${categoryMatch[1]}` : '';
+            const sortParam = sortMatch ? `&sort=${sortMatch[1]}` : '';
+
+            // Fetch products for the selected page using AJAX with current filter and sort parameters
+            fetch(`/shop?page=${page}${categoryParam}${sortParam}`)
                 .then(response => response.json())
                 .then(data => {
                     // Update the product grid with the new products
@@ -285,10 +717,24 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+    function submitForm() {
+        // Get the form element
+        var form = document.getElementById('myForm');
+
+        // Submit the form
+        form.submit();
+    }
+
+
+
 </script>
 
 
-    
+<script>
+    function updateFilter() {
+        document.getElementById('filterForm').submit();
+    }
+</script>
 
 
 

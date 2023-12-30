@@ -112,26 +112,37 @@ const addToCart = async (req,res)=>{
         console.error("Error adding product to cart:",error);
     }
 }
- const updateCartItemQuantity = async (req, res) => {
-    const { productId, newQuantity } = req.body;
-
+const updateCart = async (req, res) => {
     try {
-        // Assuming you are using Mongoose for MongoDB
-        const result = await Cart.updateOne(
-            { 'items._id': productId },
-            { $set: { 'items.$.quantity': newQuantity } }
-        );
+        const userId = req.session.user_id;
+        const cart = await Cart.findOne({ user: userId }).populate("items.product");
+        const productId = req.body.productId;
+        const newQuantity = parseInt(req.body.quantity);
 
-        if (result.nModified > 0) {
-            res.json({ success: true });
+        // Find the cart item in the array
+        const cartItem = cart.items.find((item) => item.product._id.toString() === productId);
+
+        if (cartItem) {
+            // Update the quantity in the cart item
+            cartItem.quantity = newQuantity;
+
+            // Calculate the new product total on the server side
+            const productTotal = cartItem.product.discount_price * newQuantity;
+
+            // Save the updated cart
+            await cart.save();
+
+            // Respond with the new product total
+            res.json({ success: true, productTotal: productTotal });
         } else {
-            res.json({ success: false, message: 'Failed to update quantity.' });
+            res.status(404).json({ success: false, error: 'Product not found in the cart' });
         }
     } catch (error) {
-        console.error('Error updating quantity in the database:', error);
-        res.json({ success: false, message: 'Internal server error.' });
+        console.error('Error updating cart:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 };
+
 const removeFromCart = async (req,res) => {
     try {
         const userId = req.session.user_id
@@ -156,6 +167,6 @@ const removeFromCart = async (req,res) => {
 module.exports = {
     loadCart,
     addToCart,
-    updateCartItemQuantity,
+    updateCart,
     removeFromCart
 }

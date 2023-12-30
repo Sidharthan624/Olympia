@@ -1,4 +1,6 @@
 const Order = require('../models/orderModel')
+const Product = require('../models/productModel')
+const Category = require('../models/categoryModel')
 const getDailyDataArray = async () => {
     //weekly data
     const currentDate = new Date();
@@ -136,8 +138,80 @@ const getDailyDataArray = async () => {
   
     return yearlyDataArray;
   };
-module.exports = module.exports = {
+
+  const getCategoryWiseDataArray = async () => {
+    const currentDate = new Date();
+    const sevenMonthsAgo = new Date();
+    sevenMonthsAgo.setMonth(sevenMonthsAgo.getMonth() - 12);
+  
+    // Fetch unique category names from the Product collection
+    const uniqueCategories = await Category.distinct("name");
+  
+    const categoryWiseOrders = await Order.aggregate([
+      {
+        $match: {
+          "paymentStatus": "Success",
+          orderDate: { $gte: sevenMonthsAgo, $lte: currentDate },
+        },
+      },
+      {
+        $unwind: "$items",
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "items.product",
+          foreignField: "_id",
+          as: "productInfo",
+        },
+      },
+      {
+        $unwind: "$productInfo",
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "productInfo.category",
+          foreignField: "_id",
+          as: "categoryInfo",
+        },
+      },
+      {
+        $unwind: "$categoryInfo",
+      },
+      {
+        $group: {
+          _id: "$categoryInfo.name",
+          count: { $sum: "$items.quantity" },
+        },
+      },
+      {
+        $sort: { _id: 1 },
+      },
+    ]);
+  
+    // Ensure that all categories are present in the result, even if there are no sales for a category.
+    const categoryDataArray = uniqueCategories.map(category => ({
+      category,
+      count: 0,
+    }));
+  
+    // Update counts based on the actual data
+    categoryWiseOrders.forEach(category => {
+      const index = uniqueCategories.indexOf(category._id);
+      if (index !== -1) {
+        categoryDataArray[index].count = category.count;
+      }
+    });
+  
+    return { categoryNames: uniqueCategories, categoryDataArray };
+  };
+  
+  
+  module.exports = {
     getDailyDataArray,
     getYearlyDataArray,
-    getMonthlyDataArray
-};
+    getMonthlyDataArray,
+    getCategoryWiseDataArray,
+  };
+  

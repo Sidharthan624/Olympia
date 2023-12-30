@@ -126,7 +126,7 @@
               </td>
               <td>
                 <div class="info align-items-center">
-                  <span><%= product.price %></span>
+                  <span><%= product.discount_price%></span>
                 </div>
               </td>
               <td>
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
               // Product successfully deleted
               Swal.fire({
                 title: "success",
-                text: "Please confirm to delete this product!",
+                text: "Product deleted!",
                 icon: "success",
                 timer: 2000,
                 timeProgressBar: true,

@@ -640,25 +640,42 @@
     </script>
     
     <script>
-    // Attach an event listener to all cart quantity inputs
+    // Convert the cart array to a JSON string and parse it in JavaScript
+    const cartData = JSON.parse('<%- JSON.stringify(cart) %>');
+    console.log(cartData);
+
+    // Attach an event listener to the quantity input
     $('.cart-quantity-input').on('input', function () {
-        // Get the closest parent row
-        const row = $(this).closest('tr');
+        // Capture the updated data
+        const rowIndex = $(this).closest('tr').data('row-index');
+        const productId = cartData[rowIndex].product._id; // Access the cart data using JavaScript
+        const newQuantity = $(this).val(); // Get the new quantity
 
-        // Get the row index
-        const rowIndex = row.index();
-
-        // Find the corresponding span for product total
-        const productTotalSpan = row.find('.product-total');
-
-        // Get the quantity value and calculate the product total
-        const quantity = parseInt($(this).val()) || 0; // Parse the input value to an integer, default to 0 if not a number
-        const productPrice = parseFloat(row.find('.price span').text()) || 0; // Assuming the price is stored in a span, default to 0 if not a number
-
-        // Update the product total span
-        const productTotal = quantity * productPrice;
-        productTotalSpan.text(productTotal.toFixed(2)); // Adjust the number of decimals as needed
+        // Call the updateCart function with the captured data
+        updateCart(productId, newQuantity, rowIndex);
     });
+
+    // Function to update cart quantity
+    function updateCart(productId, newQuantity, rowIndex) {
+        $.ajax({
+            type: 'POST',
+            url: '/updateCart', // Replace with your actual server endpoint
+            data: {
+                productId: productId,
+                quantity: newQuantity,
+                rowIndex: rowIndex // Pass the rowIndex to the server
+            },
+            success: function (data) {
+                // Update the product total in the corresponding row
+                $('#productTotal_' + rowIndex).text(data.productTotal);
+
+                // Optionally, you can update other UI elements or perform additional actions
+            },
+            error: function (error) {
+                console.error('Error updating cart:', error);
+            }
+        });
+    }
 </script>
 
 
@@ -705,24 +722,7 @@
     });
 }
 
-    function updateCart(productId, newQuantity) {
-        fetch(`/checkout?productId=${productId}&quantity=${newQuantity}`, {
-            method: 'PUT',
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-
-            } else {
-                console.error('Failed to update cart:', data.error);
-            }
-        })
-        .catch(error => {
-            console.error('Error updating cart:', error);
-        });
-    }
-
+   
     
     </script>
     

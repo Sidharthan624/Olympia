@@ -6,7 +6,8 @@ const Category = require('../../models/categoryModel')
 const {
     getDailyDataArray,
     getYearlyDataArray,
-    getMonthlyDataArray
+    getMonthlyDataArray,
+    getCategoryWiseDataArray
 } = require('../../config/chartData');
 
 
@@ -79,6 +80,8 @@ const loadHome =async (req,res)=>{
         console.log(monthlyDataArray,"monthlyDataArray");
         console.log(dailyOrderCounts,"dailyOrderCounts");
         console.log(yearlyOrderCounts,"yearlyOrderCounts");
+        const { categoryNames, categoryDataArray } = await getCategoryWiseDataArray()
+        console.log(categoryNames,categoryDataArray);
         if (userData){
             res.render("admin/adminHome",
             {
@@ -93,7 +96,9 @@ const loadHome =async (req,res)=>{
                 monthlyEarningsValue,
                 monthlyOrderCounts,
                 dailyOrderCounts,
-                yearlyOrderCounts
+                yearlyOrderCounts,
+                categoryNames,
+                categoryDataArray
             }
             )
         }

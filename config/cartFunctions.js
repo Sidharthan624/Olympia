@@ -4,7 +4,7 @@ const calculateSubTotal = (cart) => {
         const priceToUse = cartItem.product.sale_price !== 0 ? cartItem.product.sale_price : cartItem.product.discount_price;
         subtotal += priceToUse * cartItem.quantity;
     }
-    return subtotal;
+    return Math.round(subtotal);
 };
 
 const calculateProductTotal = (cart) => {
@@ -12,26 +12,27 @@ const calculateProductTotal = (cart) => {
     for (const cartItem of cart) {
         const priceToUse = cartItem.product.sale_price !== 0 ? cartItem.product.sale_price : cartItem.product.discount_price;
         const total = priceToUse * cartItem.quantity;
-        productTotals.push(total);
+        productTotals.push(Math.round(total));
     }
-    return productTotals;
+    return Math.round(productTotals) ;
 };
- const calculateOldPrice = (cart)=>{
-    let subtotal = 0
+
+const calculateOldPrice = (cart) => {
+    let subtotal = 0;
     for (const cartItem of cart) {
-        
         subtotal += cartItem.product.discount_price * cartItem.quantity;
     }
-    return subtotal;
- }
- const discountedPrice = (cart)=>{
-    let subtotal = 0
+    return Math.round(subtotal);
+};
+
+const discountedPrice = (cart) => {
+    let subtotal = 0;
     for (const cartItem of cart) {
-        
         subtotal += cartItem.product.sale_price * cartItem.quantity;
     }
-    return subtotal;
- }
+    return Math.round(subtotal);
+};
+
 
 module.exports = {
     calculateProductTotal,
