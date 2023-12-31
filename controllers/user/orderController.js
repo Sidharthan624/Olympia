@@ -4,13 +4,14 @@ const Order = require('../../models/orderModel')
 const Product = require('../../models/productModel')
 const Cart = require ('../../models/cartModel')
 const Coupon = require('../../models/couponModel')
+require('dotenv').config()
 
 const RazorPay = require('razorpay')
 
 
 var instance = new RazorPay({
-    key_id:'rzp_test_dTWp25pBQ5jW81',
-    key_secret:'Sg6ymJfWNf4atGBsqXhuaALE'
+    key_id:process.env.RAZOR_PAY_ID,
+    key_secret:process.env.RAZOR_PAY_SECRET
 })
 
 const {calculateProductTotal, calculateSubTotal,calculateOldPrice}=require('../../config/cartFunctions')
