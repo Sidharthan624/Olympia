@@ -5,7 +5,7 @@ const isLogin =async(req,res,next)=>{
     try {
         const userData = await User.findOne({_id:req.session.user_id})
 
-        if(req.session.user_id && userData.isAdmin==0){
+        if(req.session.user_id && userData.isAdmin==0&&userData.isBlocked==0 ){
             
             next()
         }else{

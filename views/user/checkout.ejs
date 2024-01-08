@@ -343,13 +343,39 @@
 
             const address = selectedAddress.value;
 
+            const cartItems = cart.items; // Assuming cart has an 'items' property
+
+    // Check cart quantity against stock
+    let insufficientStock = false;
+
+    cartItems.forEach(item => {
+        if (item.quantity > item.product.stock) {
+            insufficientStock = true;
+        }
+
+
+    });
+    if (insufficientStock) {
+        // Show SweetAlert for insufficient stock
+        Swal.fire("Error!", "Insufficient stock for one or more products in your cart", "error");
+        return; // Stop further execution
+    }
+
+   
+
             const requestData = {
 
                 address: address,
                 paymentMethod: selectedPaymentMethod,
             };
 
-            if (selectedPaymentMethod == "CashOnDelivery"  ) {
+            if (selectedPaymentMethod === "CashOnDelivery"  ) {
+
+                console.log("Selected Payment Method: CashOnDelivery");
+
+
+
+
                 fetch('/checkout', {
                     method: 'POST',
                     headers: {
@@ -454,7 +480,7 @@
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('Error occurred while placing orderewew');
+                        alert('Error occurred while placing order');
                     });
             } else  if (selectedPaymentMethod == "Wallet" ) {
                 fetch('/checkout', {

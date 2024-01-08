@@ -14,7 +14,7 @@ const calculateProductTotal = (cart) => {
         const total = priceToUse * cartItem.quantity;
         productTotals.push(Math.round(total));
     }
-    return Math.round(productTotals) ;
+    return productTotals;
 };
 
 const calculateOldPrice = (cart) => {
@@ -32,11 +32,15 @@ const discountedPrice = (cart) => {
     }
     return Math.round(subtotal);
 };
+const calculateCartSubtotal = (cartItems) => {
+    return cartItems.reduce((total, item) => total + item.product.discount_price * item.quantity, 0);
+};
 
 
 module.exports = {
     calculateProductTotal,
     calculateSubTotal,
     calculateOldPrice,
-    discountedPrice 
+    discountedPrice,
+    calculateCartSubtotal
 };

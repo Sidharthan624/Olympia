@@ -141,13 +141,13 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        ₹<%=item.product.discount_price %>
+                                                        ₹<%=item.price %>
                                                     </td>
                                                     <td>
                                                         <%=item.quantity %>
                                                     </td>
                                                     <td class="text-end">
-                                                        ₹<%= (item.quantity*item.product.sale_price ? item.product.sale_price : item.product.discount_price) %>
+                                                        ₹<%= (item.quantity*item.price) %>
 
                                                     </td>
                                                 </tr>

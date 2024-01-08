@@ -638,11 +638,17 @@
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js">
     </script>
+
+  
+
     
     <script>
     // Convert the cart array to a JSON string and parse it in JavaScript
-    const cartData = JSON.parse('<%- JSON.stringify(cart) %>');
-    console.log(cartData);
+    const cartData = JSON.parse('<%- JSON.stringify(cart) %>')
+    const productTotal = JSON.parse('<%- JSON.stringify(productTotal) %>');
+    console.log('Initial productTotal:', productTotal);
+
+    
 
     // Attach an event listener to the quantity input
     $('.cart-quantity-input').on('input', function () {
@@ -670,7 +676,13 @@
                 $('#productTotal_' + rowIndex).text(data.productTotal);
 
                 // Optionally, you can update other UI elements or perform additional actions
+                // Update the product total in the corresponding row
+        $('#productTotal_' + rowIndex).text(data.productTotal);
+
+// Update the cart subtotal in the table
+       $('.cart_total_amount span').text(data.newSubtotal);
             },
+        
             error: function (error) {
                 console.error('Error updating cart:', error);
             }

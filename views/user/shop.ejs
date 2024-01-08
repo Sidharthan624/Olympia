@@ -605,13 +605,16 @@
                                   <% if (product.stock== 0) { %>
                                     <div><p class="text-danger">Out of stock</p></div>
                                    
-                                  <% }else{%>  <form id="myForm" action="/cart" method="post">                   
+                                  <% }else{%>  
+                                    
+                                    <form id="myForm_<%= product._id %>" action="/cart" method="post">                   
                                     <div class="product-action-1 show">
                                         <input type="hidden" value="<%= product._id %>" name="productData_id"> 
                                         <input type="hidden" value="1" name="qty">
-                                        <button type="button" aria-label="Add To Cart" class="action-btn hover-up" onclick="submitForm()" >
+                                        <button type="button" aria-label="Add To Cart" class="action-btn hover-up" onclick="submitForm('<%= product._id %>')">
                                             <i class="fi-rs-shopping-bag-add"></i>
                                         </button>
+                                        
                                     </div>
                                 </form><%} %>
                                 
@@ -717,13 +720,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-    function submitForm() {
-        // Get the form element
-        var form = document.getElementById('myForm');
+function submitForm(productId) {
+    // Get the form element
+    var form = document.getElementById('myForm_' + productId);
 
-        // Submit the form
+    // Submit the form
+    if (form) {
         form.submit();
     }
+}
+
+
 
 
 

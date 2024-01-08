@@ -1,7 +1,7 @@
 const Cart = require('../../models/cartModel')
 const User = require('../../models/userModel')
 const {calculateProductTotal,calculateSubTotal} = require('../../config/cartFunctions')
-const{calculateOldPrice} = require('../../config/cartFunctions')
+const{calculateCartSubtotal} = require('../../config/cartFunctions')
 
 const loadCart = async (req,res)=>{
     try {
@@ -21,6 +21,7 @@ const loadCart = async (req,res)=>{
                 const subtotal = calculateSubTotal(cart)
             
                 const productTotal = calculateProductTotal(cart)
+                console.log(productTotal);
                  
                 // const discountedPrice = discountedPrice(cart)
 
@@ -133,7 +134,11 @@ const updateCart = async (req, res) => {
             await cart.save();
 
             // Respond with the new product total
-            res.json({ success: true, productTotal: productTotal });
+            
+            const newSubtotal = calculateCartSubtotal(cart.items);
+
+            // Respond with the new product total and updated subtotal
+            res.json({ success: true, productTotal: productTotal, newSubtotal: newSubtotal });
         } else {
             res.status(404).json({ success: false, error: 'Product not found in the cart' });
         }
