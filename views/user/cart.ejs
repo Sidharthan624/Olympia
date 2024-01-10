@@ -708,26 +708,38 @@
 
 
     
-    <script>
-    // Convert the cart array to a JSON string and parse it in JavaScript
-    const cartData = JSON.parse('<%- JSON.stringify(cart) %>')
+<script>
+    const cartData = JSON.parse('<%- JSON.stringify(cart) %>');
     const productTotal = JSON.parse('<%- JSON.stringify(productTotal) %>');
     console.log('Initial productTotal:', productTotal);
 
-    
-
-    // Attach an event listener to the quantity input
     $('.cart-quantity-input').on('input', function () {
-        // Capture the updated data
         const rowIndex = $(this).closest('tr').data('row-index');
-        const productId = cartData[rowIndex].product._id; // Access the cart data using JavaScript
-        const newQuantity = $(this).val(); // Get the new quantity
+        const productId = cartData[rowIndex].product._id;
+        const newQuantity = $(this).val();
 
-        // Call the updateCart function with the captured data
-        updateCart(productId, newQuantity, rowIndex);
+        // Validate the new quantity before updating the cart
+        if (isValidQuantity(productId, newQuantity)) {
+            // Only update the cart if the quantity is valid
+            updateCart(productId, newQuantity, rowIndex);
+        } else {
+            // Show an error message or take appropriate action
+            alert('Error: Quantity exceeds available stock');
+            
+            // Reset the input field to the previous quantity
+            const previousQuantity = cartData[rowIndex].quantity;
+            $(this).val(previousQuantity);
+        }
     });
 
-    // Function to update cart quantity
+    function isValidQuantity(productId, newQuantity) {
+        // Retrieve the product from cartData based on productId
+        const productInCart = cartData.find(item => item.product._id === productId);
+
+        // Check if the new quantity exceeds the available stock
+        return parseInt(newQuantity) <= productInCart.product.stock;
+    }
+
     function updateCart(productId, newQuantity, rowIndex) {
         $.ajax({
             type: 'POST',
@@ -735,26 +747,20 @@
             data: {
                 productId: productId,
                 quantity: newQuantity,
-                rowIndex: rowIndex // Pass the rowIndex to the server
+                rowIndex: rowIndex
             },
             success: function (data) {
-                // Update the product total in the corresponding row
                 $('#productTotal_' + rowIndex).text(data.productTotal);
-
-                // Optionally, you can update other UI elements or perform additional actions
-                // Update the product total in the corresponding row
-        $('#productTotal_' + rowIndex).text(data.productTotal);
-
-// Update the cart subtotal in the table
-       $('.cart_total_amount span').text(data.newSubtotal);
+                $('.cart_total_amount span').text(data.newSubtotal);
             },
-        
             error: function (error) {
                 console.error('Error updating cart:', error);
             }
         });
     }
 </script>
+
+
 
 
 
