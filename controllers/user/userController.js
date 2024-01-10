@@ -460,6 +460,33 @@ const addAddress = async (req, res) => {
       console.error(error.message);
     }
   };
+  const addBillingAddress = async (req, res) => {
+    try {
+       
+        const id = req.session.user_id
+        const{name,addressLine,city,postalCode,state,country,isDefault} = req.body
+
+      const address = new Address({
+        user: id,
+        name,
+        addressLine,
+        city,
+        postalCode,
+        state,
+        country,
+        isDefault
+      });
+  
+      
+      await address.save(); 
+
+      
+  
+      res.redirect('/checkout'); 
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   const editAddress = async (req,res)=>{
     try {
         const id = req.query.id
@@ -642,7 +669,8 @@ loadEditPassword,
 editPassword,
 walletHistory,
 loadAboutus,
-loadContactUs
+loadContactUs,
+addBillingAddress
 
 
 

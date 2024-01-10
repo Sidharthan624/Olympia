@@ -206,6 +206,51 @@ $(document).ready(function ($) {
 }
 
 </script>
+<script>
+  function validation(startDate, endDate) {
+    // Your validation logic here
+    // For example, check if startDate and endDate are valid dates
+    if (!startDate || !endDate) {
+        console.error('Start date and end date are required.');
+        return true; // Indicate validation error
+    }
+
+    // Additional validation logic if needed
+
+    return false; // Indicate no validation error
+}</script>
+<script>
+    function renderOrders(orders) {
+      console.log('hi');
+        const ordersTableBody = document.querySelector('#products tbody');
+        ordersTableBody.innerHTML = ''; // Clear existing table body
+
+        orders.forEach(order => {
+            order.items.forEach(item => {
+                const orderDate = new Date(order.orderDate).toLocaleDateString();
+                const deliveryDate = new Date(order.deliveryDate).toLocaleDateString();
+                const startDate = document.getElementById("startDate").value;
+                console.log(startDate);
+                console.log(orderDate);
+                const endDate = document.getElementById("endDate").value;
+
+                
+                  console.log('yes');
+                    const newRow = ordersTableBody.insertRow();
+                    newRow.innerHTML = `
+                        <td>${order.randomId}</td>
+                        <td>${order.user.name}</td>
+                        <td>${orderDate}</td>
+                        <td>${deliveryDate}</td>
+                        <td>${order.totalAmount}</td>
+                        <td>${order.status}</td>
+                        <td>${order.paymentMethod}</td>
+                    `;
+                
+            });
+        });
+    }
+</script>
 
 <script>
   function dateFilter() {

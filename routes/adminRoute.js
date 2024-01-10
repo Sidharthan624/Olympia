@@ -42,6 +42,7 @@ adminRoute.get('/orderlist',adminAuth.isLogin,orderController.ordersList)
 adminRoute.get('/orderDetails',adminAuth.isLogin,orderController.orderDetails)
 adminRoute.get('/orderStatusUpdate',adminAuth.isLogin,orderController.orderStatusUpdate)
 adminRoute.get('/salesReport',adminAuth.isLogin,orderController.loadSalesReport)
+adminRoute.get("/salesReport/:start/:end", adminAuth.isLogin, orderController.dateFilter);
 //coupons
 adminRoute.get('/addCoupon',adminAuth.isLogin,couponController.addCouponForm)
 adminRoute.post('/addCoupon',adminAuth.isLogin,couponController.addCoupon)

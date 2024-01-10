@@ -105,7 +105,7 @@ const dateFilter = async (req, res) => {
     let query = {};
 
     if (start && end) {
-        console.log('hello');
+        
         query.orderDate = { $gte:start,
         $lt:end };
     }
@@ -123,7 +123,7 @@ const dateFilter = async (req, res) => {
             })
             .sort({ orderDate: -1 });
 
-            console.log(orders,"aaaaaaaaaaaaaa");
+            
 
         const totalRevanue = orders.reduce((acc, order) => acc + order.totalAmount, 0);
         const totalSales = orders.length;
