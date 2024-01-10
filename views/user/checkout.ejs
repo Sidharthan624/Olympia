@@ -315,212 +315,187 @@
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
+        
+        
 
 
         let btn_checkout = document.getElementById('btn_checkout');
         btn_checkout.addEventListener('click', function () {
+            
 
             placeOrder();
         });
 
         function placeOrder() {
+    const selectedAddress = document.querySelector('input[name="checkAddress"]:checked');
+    let selectedPaymentMethod = document.querySelector('input[name="payment_option"]:checked').value;
 
-            const selectedAddress = document.querySelector('input[name="checkAddress"]:checked');
-            let selectedPaymentMethod = document.querySelector('input[name="payment_option"]:checked').value;
+    if (!selectedAddress) {
+        const notification = document.getElementById('cartNotification');
+        notification.style.display = 'block';
 
+        // Hide the notification after 2 seconds
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 2000);
 
-
-            if (!selectedAddress) {
-                const notification = document.getElementById('cartNotification');
-                notification.style.display = 'block';
-
-                // Hide the notification after 2 seconds
-                setTimeout(() => {
-                    notification.style.display = 'none';
-
-                }, 2000);
-            }
-
-            const address = selectedAddress.value;
-
-            const cartItems = cart.items; // Assuming cart has an 'items' property
-
-    // Check cart quantity against stock
-    let insufficientStock = false;
-
-    cartItems.forEach(item => {
-        if (item.quantity > item.product.stock) {
-            insufficientStock = true;
-        }
-
-
-    });
-    if (insufficientStock) {
-        // Show SweetAlert for insufficient stock
-        Swal.fire("Error!", "Insufficient stock for one or more products in your cart", "error");
         return; // Stop further execution
     }
 
+    const address = selectedAddress.value;
+
+
+    
    
 
-            const requestData = {
+    const requestData = {
+        address: address,
+        paymentMethod: selectedPaymentMethod,
+    };
 
-                address: address,
-                paymentMethod: selectedPaymentMethod,
-            };
+    if (selectedPaymentMethod === "CashOnDelivery") {
+        console.log("Selected Payment Method: CashOnDelivery");
 
-            if (selectedPaymentMethod === "CashOnDelivery"  ) {
+        fetch('/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            handleOrderResponse(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error occurred while placing order');
+        });
+    } else if (selectedPaymentMethod === "onlinePayment") {
+        fetch('/razorpayOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            handleRazorpayOrderResponse(data, requestData);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error occurred while placing order');
+        });
+    } else if (selectedPaymentMethod === "Wallet") {
+        fetch('/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            handleWalletOrderResponse(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error occurred while placing order');
+        });
+    }
+}
 
-                console.log("Selected Payment Method: CashOnDelivery");
+function handleOrderResponse(data) {
+    if (data.success) {
+        Swal.fire({
+            title: "Success",
+            text: data.message,
+            icon: "success",
+            timer: 2000,
+            timeProgressBar: true,
+            showConfirmButton: true,
+        }).then(() => {
+            // Redirect after displaying the success message
+            window.location.href = '/orderSuccess';
+        });
+    } else {
+        Swal.fire("Error!", "Failed to perform the action", "error");
+    }
+}
 
-
-
-
-                fetch('/checkout', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestData),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-
-                        if (data.success) {
-
-                            Swal.fire({
-                                title: "Success",
-                                text: data.message,
-                                icon: "success",
-                                timer: 2000,
-                                timeProgressBar: true,
-                                showConfirmButton: true,
-                            }).then(() => {
-                                // Redirect after displaying the success message
-                                window.location.href = '/orderSuccess';
-                            });
-                        } else {
-                            Swal.fire("Error!", "Failed to perform the action", "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error occurred while placing order');
+function handleRazorpayOrderResponse(data, requestData) {
+    if (data.success) {
+        const options = {
+            key: "rzp_test_dTWp25pBQ5jW81",
+            amount: data.order.amount,
+            currency: "INR",
+            name: "Olympia",
+            description: "Payment for Your Order",
+            order_id: data.order.id,
+            handler: async function (response) {
+                console.log("Payment successful:", response);
+                if (response.razorpay_payment_id) {
+                    const createOrderResponse = await fetch("/checkout", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(requestData),
                     });
-            } else if (selectedPaymentMethod == "onlinePayment") {
-        
-                fetch('/razorpayOrder', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestData),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                     
-                        if (data.success) {
-                          
-                            const options = {
-                                key: "rzp_test_dTWp25pBQ5jW81",
-                                amount: data.order.amount,
-                                currency: "INR",
-                                name: "Olympia",
-                                description: "Payment for Your Order",
-                                order_id: data.order.id,
-                                handler: async function (response) {
-                                    // Handle successful payment response here
-                                    console.log("Payment successful:", response);
-                                    if (response.razorpay_payment_id) {
-                                        // Move the order creation logic here
-                                   
 
-                                        const createOrderResponse = await fetch("/checkout", {
+                    const orderData = await createOrderResponse.json();
 
-                                            method: "POST",
-                                            headers: {
-                                                "Content-Type": "application/json",
-                                            },
-                                            body: JSON.stringify(requestData),
-                                        });
-                           
-
-                                        const orderData = await createOrderResponse.json();
-
-                                        if (orderData.success) {
-                                            console.log("Order created successfully");
-                                            // Redirect to order confirmation page or any other desired action
-                                            window.location.href = "/orderSuccess";
-                                        } else {
-                                            // Handle error in order creation
-                                            console.error("Error in order creation:", orderData.error);
-                                        }
-                                    }
-                                },
-                                prefill: {
-                                    name: "Olympia",
-                                    email: "sidharthan@gmail.com",
-                                    contact: "7558911587"
-                                },
-                                notes: {
-                                    address: "Razorpay Corporate Office"
-                                },
-                                theme: {
-                                    color: "#3399cc"
-                                }
-                            };
-
-                            const rzp = new Razorpay(options);
-                            rzp.open();
-                        } else {
-                            // Handle error in Razorpay order creation
-                            console.error("Error in Razorpay order creation:", data.error);
-                        }
-
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error occurred while placing order');
-                    });
-            } else  if (selectedPaymentMethod == "Wallet" ) {
-                fetch('/checkout', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestData),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-
-                        if (data.success) {
-
-                            Swal.fire({
-                                title: "Success",
-                                text: data.message,
-                                icon: "success",
-                                timer: 2000,
-                                timeProgressBar: true,
-                                showConfirmButton: true,
-                            }).then(() => {
-                                // Redirect after displaying the success message
-                                window.location.href = '/orderSuccess';
-                            });
-                        } else {
-                            Swal.fire("Error!", "Insufficient balance", "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error occurred while placing order');
-                    });
+                    if (orderData.success) {
+                        console.log("Order created successfully");
+                        // Redirect to order confirmation page or any other desired action
+                        window.location.href = "/orderSuccess";
+                    } else {
+                        // Handle error in order creation
+                        console.error("Error in order creation:", orderData.error);
+                    }
+                }
+            },
+            prefill: {
+                name: "Olympia",
+                email: "sidharthan@gmail.com",
+                contact: "7558911587"
+            },
+            notes: {
+                address: "Razorpay Corporate Office"
+            },
+            theme: {
+                color: "#3399cc"
             }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+    } else {
+        // Handle error in Razorpay order creation
+        console.error("Error in Razorpay order creation:", data.error);
+    }
+}
+
+function handleWalletOrderResponse(data) {
+    if (data.success) {
+        Swal.fire({
+            title: "Success",
+            text: data.message,
+            icon: "success",
+            timer: 2000,
+            timeProgressBar: true,
+            showConfirmButton: true,
+        }).then(() => {
+            // Redirect after displaying the success message
+            window.location.href = '/orderSuccess';
+        });
+    } else {
+        Swal.fire("Error!", "Insufficient balance", "error");
+    }
+}
 
 
-
-
-
-        }
         </script>
         
 

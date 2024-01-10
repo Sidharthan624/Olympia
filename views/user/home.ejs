@@ -1032,17 +1032,38 @@
                 <!--End tab-content-->
             </div>
         </section>
-        <section class="banner-2 section-padding pb-0">
-            <div class="container">
-                <div class="banner-img banner-big wow fadeIn animated f-none w-100">
-                    <img src="/images/banner.avif" alt="">
-                    <div class="banner-text d-md-block d-none">
-                        
-                        <a href="shop-grid-right.html" class="btn">Learn More <i class="fi-rs-arrow-right"></i></a>
+        <% for (let i=0; i < banner.length; i++) { %>
+
+            <div class="single-hero-slider single-animation-wrap">
+                <div class="container">
+                    <div class="row justify-content-center slider-animated-1">
+                        <div class="col-lg-12 col-md-12 slider-image"
+                            style="background-image: url('/assets/imgs/category/<%= banner[i].image %>'); max-width: 100%; background-size: cover;">
+                            <div class="hero-slider-content-2 text-center align-items-center">
+                                <br /><br /><br />
+
+                                <h2 class="animated fw-900" style="color: darkgray; font-size: 2rem;">
+                                    ---
+                                </h2>
+                                <h2 class="animated fw-900" style="color: darkgray; font-size: 2rem;">
+                                    ---
+                                </h2>
+                                <br /><br /><br /><br /><br /><br />
+
+                                <p class="animated" style="margin-left: 1.5rem; color: white; font-size: 1rem;">
+
+                                </p>
+                                <br /><br /><br /><br /><br /><br />
+
+                                <a class="animated btn btn-brush btn-brush-3"
+                                    href="<%= banner[i].link %>" tabindex="0">Shop
+                                    Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+            <% } %>
         <!-- <section class="popular-categories section-padding mt-15 mb-25">
             <div class="container wow fadeIn animated">
                 <h3 class="section-title mb-20"><span>Popular</span> Categories</h3>

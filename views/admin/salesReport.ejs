@@ -15,6 +15,19 @@
            
                 </ul>
               </div>
+              <div class="mb-2" >
+                <label for="category_name" class="form-label">Start Date</label>
+                <input type="date" name="startDate" placeholder="Type here" class="form-control" id="startDate">
+                <div class="error-message" style="color: red;" id="startDate-error"></div>
+              </div>
+        
+              <div class="mb-2" >
+                <label for="start date" class="form-label">End Date</label>
+                <input type="date" name="endDate" placeholder="Type here" class="form-control" id="endDate">
+                <div class="error-message" style="color: red;" id="endDate-error"></div>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="dateFilter()">Filter by date</button>
+        
                   <div class="row">
                     <div class="col-md-12 text-right">
                             <button id="pdfButton" class="btn btn-secondary print ms-2"><i class="icon material-icons md-print"></i> Download </button>
@@ -190,6 +203,40 @@ $(document).ready(function ($) {
 
   let blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
   saveAs(blob, 'test.xlsx'); // This will prompt a download for the file
+}
+
+</script>
+
+<script>
+  function dateFilter() {
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    const error = validation(startDate, endDate);
+
+    if (!error) {
+        fetch(`/admin/salesReport/${startDate}/${endDate}`, {
+            method: 'GET',
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    const orders = data.orders;
+                    renderOrders(orders);
+                } else {
+                    // Handle server-side error
+                    console.error('Server error:', data.error);
+                }
+            })
+            .catch(error => {
+                // Handle network or other fetch-related errors
+                console.error('Fetch error:', error);
+            });
+    }
 }
 
 </script>

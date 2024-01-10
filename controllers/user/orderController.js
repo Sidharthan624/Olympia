@@ -16,36 +16,61 @@ var instance = new RazorPay({
 
 const {calculateProductTotal, calculateSubTotal,calculateOldPrice}=require('../../config/cartFunctions')
 
-const loadChekout = async (req,res)=>{
+const loadChekout = async (req, res) => {
     try {
-        const userId = req.session.user_id
+        const userId = req.session.user_id;
 
-        const userData = await User.findById(userId)
+        const userData = await User.findById(userId);
 
-        const cart = await Cart.findOne({user:userId}).populate({
-            path:"items.product",
-            model:"Product"
-        }).exec()
-        
+        const cart = await Cart.findOne({ user: userId }).populate({
+            path: "items.product",
+            model: "Product",
+        });
 
-        if(!cart) {
+        if (!cart) {
             console.log("Cart not found");
+            return res.status(404).json({ success: false, message: "Cart not found" });
         }
-        const cartItems = cart.items || []
-        const subtotal = calculateSubTotal(cartItems)
-       
-        const productTotal = calculateProductTotal(cartItems)
-        const oldPrice = calculateOldPrice(cartItems)
-        const subtotalWithShipping =subtotal
-        const addressData = await Address.find({user:userId})
-        const coupon=await Coupon.findOne({appliedUsers:userId})
 
-        res.render('user/checkout',{userData,addressData,cart:cartItems,productTotal,subtotalWithShipping,coupon,oldPrice})
+        const cartItems = cart.items || [];
+        
+        // Validate quantity against product stock
+        const invalidItems = cartItems.filter(item => item.quantity > item.product.stock);
+
+        if (invalidItems.length > 0) {
+            // Quantity validation failed
+            return res.status(400).json({
+                success: false,
+                message: "Quantity of one or more items exceeds available stock",
+            });
+        }
+
+        // Proceed with rendering the checkout page
+        const subtotal = calculateSubTotal(cartItems);
+        const productTotal = calculateProductTotal(cartItems);
+        const oldPrice = calculateOldPrice(cartItems);
+        const subtotalWithShipping = subtotal;
+        const addressData = await Address.find({ user: userId });
+        const coupon = await Coupon.findOne({ appliedUsers: userId });
+
+        res.render("user/checkout", {
+            userData,
+            addressData,
+            cart: cartItems,
+            productTotal,
+            subtotalWithShipping,
+            coupon,
+            oldPrice,
+        });
 
     } catch (error) {
-        console.error("Error fetching user data and address",error);
+        console.error("Error fetching user data and address", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
-}
+};
+
+
+
 const checkoutAddress= async (req,res) =>{
     try {
         const user = req.session.user_id
@@ -222,7 +247,9 @@ const razorPay = async(req,res)=>{
     }
 }
 const placeOrder = async (req, res) => {
+    console.log("place order");
     try {
+        console.log("place order");
         const userId = req.session.user_id;
         const user = await User.findOne({ _id: userId });
         const { address, paymentMethod } = req.body;

@@ -6,6 +6,7 @@ const categoryController = require('../controllers/admin/categoryController')
 const productController = require('../controllers/admin/productController')
 const orderController = require('../controllers/admin/orderController')
 const couponController = require('../controllers/admin/couponController')
+const bannerController = require("../controllers/admin/bannerController")
 const adminAuth = require('../middlewares/adminAuth')
 
 adminRoute.get('/',adminAuth.isLogout,adminController.loadAdminLogin)
@@ -46,4 +47,13 @@ adminRoute.get('/addCoupon',adminAuth.isLogin,couponController.addCouponForm)
 adminRoute.post('/addCoupon',adminAuth.isLogin,couponController.addCoupon)
 adminRoute.get('/coupons',adminAuth.isLogin,couponController.couponsList)
 adminRoute.get('/unlistCoupon',adminAuth.isLogin,couponController.couponAction)
+// banner
+
+adminRoute.get("/loadBanner",adminAuth.isLogin,bannerController.loadBanner)
+adminRoute.get("/loadAddBanner",adminAuth.isLogin,bannerController.loadAddBanner)
+adminRoute.post("/addBanner",multer.uploadCategory.single('image'),bannerController.addBanner)
+adminRoute.get("/loadEditForm",adminAuth.isLogin,bannerController.loadEditForm)
+adminRoute.post("/updateBanner",multer.uploadCategory.single('image'),bannerController.updateBanner)
+adminRoute.get("/deleteBanner/:id",adminAuth.isLogin,bannerController.deleteBanner)
+
 module.exports = adminRoute

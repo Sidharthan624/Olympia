@@ -627,7 +627,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="/checkout" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                <a href="/checkout" class="btn " id="proceedToCheckoutBtn"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
                             </div>
                         </div>
                     </div>
@@ -636,10 +636,76 @@
         </div>
     </section>
 </main>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js">
     </script>
+    <!-- Include SweetAlert -->
+    <!-- Include SweetAlert -->
+    <!-- Include SweetAlert -->
+    <!-- Include SweetAlert -->
+
+
+
+
+    <!-- Include SweetAlert -->
+    <!-- Include SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add an event listener to the checkout button
+        const checkoutBtn = document.getElementById('proceedToCheckoutBtn');
+
+        checkoutBtn.addEventListener('click', async function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            try {
+                // Make a request to the server to initiate the checkout process
+                const response = await fetch('/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    // You can include any necessary data in the body or leave it empty
+                    body: JSON.stringify({}),
+                });
+
+                // Check specifically for a 400 status code (quantity validation failure)
+                if (response.status == 'false') {
+                    // Show a SweetAlert for quantity validation failure
+                    const data = await response.json();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: data.message,
+                    });
+                    return; // Stop further execution
+                }
+
+                // Proceed to the checkout page
+                window.location.href = '/checkout';
+
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error occurred while processing your request',
+                });
+            }
+        });
+    });
+</script>
+
+
+    
 
   
+    
+
+
+
 
     
     <script>
@@ -689,6 +755,10 @@
         });
     }
 </script>
+
+
+
+
 
 
 

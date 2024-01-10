@@ -1,0 +1,141 @@
+<%- include('../layout/adminHeader.ejs') %>
+
+
+        <section class="content-main">
+          <form method="post" action="/admin/updateBanner" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <div class="row">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">edit Banner</h2>
+                        <div>
+                        
+                            <input type="hidden" name="banner_id" value="<%= bannerData._id %>">
+
+                                <button type="submit" class="btn btn-md rounded font-sm hover-up">Publish</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Basic</h4>
+                        </div>
+                        <div class="card-body">
+                           
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Banner title</label>
+                                    <input type="text" placeholder="Type here" value="<%= bannerData.title %>" name="title" class="form-control" id="title">
+                                    <p id="titleError"></p>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Full description</label>
+                                    <textarea placeholder="Type here" name="description"  id="description" class="form-control" rows="4"><%= bannerData.description %>" </textarea>
+                                    <p id="descriptionError"></p>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Product title</label>
+                                    <input type="text" placeholder="Type here" name="link" value="<%= bannerData.link %>" " class="form-control" id="link">
+                                    <p id="linkError"></p>
+                                </div>
+                                
+                               
+                               
+                           
+                        </div>
+                    </div> <!-- card end// -->
+                    
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="/assets/imgs/category/<%= bannerData.image%>" alt="">
+                                <input class="form-control" name="image" type="file"  accept="image/*">
+                                
+                            </div>
+                        </div>
+                    </div> <!-- card end// -->
+                </form>
+                </div>
+            </div>
+        </section> <!-- content-main end// -->
+        <style>
+            .error-message {
+                color: red; 
+                font-size: 14px;
+                
+            }
+        </style>
+        <script>
+          
+    function validateForm() {
+        var title = document.getElementById('title').value;
+        var description = document.getElementById('description').value;
+        var link = document.getElementById('link').value;
+        var image = document.querySelector('input[name="image"]').value;
+
+        const titleError=document.getElementById('titleError')
+        const descriptionError=document.getElementById('descriptionError')
+        const linkError=document.getElementById('linkError')
+        const imageError=document.getElementById('imageError')
+
+        // Check if title is empty
+        if (title.trim() === '') {
+            titleError.innerHTML = 'Title is required.';
+            titleError.style.color = 'red';
+
+            // Remove error message after 5 seconds
+            setTimeout(function () {
+                titleError.innerHTML = '';
+            }, 4000);
+
+            return false;
+        }
+
+        // Check if description is empty
+        if (description.trim() === '') {
+            descriptionError.innerHTML = 'Full description is required.';
+            descriptionError.style.color = 'red';
+
+            // Remove error message after 5 seconds
+            setTimeout(function () {
+                descriptionError.innerHTML = '';
+            }, 4000);
+
+            return false;
+        }
+
+        // Check if link is empty
+        if (link.trim() === '') {
+            linkError.innerHTML = 'Product title is required.';
+            linkError.style.color = 'red';
+
+            // Remove error message after 5 seconds
+            setTimeout(function () {
+                linkError.innerHTML = '';
+            }, 4000);
+
+            return false;
+        }
+
+
+        // Check if an image is selected
+        if (image === '') {
+            alert('Please select an image.');
+            return false;
+        }
+
+        // Additional custom validations can be added based on your requirements
+
+        // If all validations pass, return true to allow form submission
+        return true;
+    }
+
+
+          </script>
+          
+
+          <%- include('../layout/adminFooter.ejs') %>

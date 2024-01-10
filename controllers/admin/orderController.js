@@ -66,7 +66,7 @@ const loadSalesReport = async (req,res)=>{
         else if (req.query.status === "Yearly"){
             query.orderDate = dateFun.getYearlyDateRange()
         }else if(req.query.status === "All"){
-            query["paymentStatus"] = "Success"
+            query["status"] = "Delivered"
         }
     }
     try {
@@ -97,6 +97,57 @@ const loadSalesReport = async (req,res)=>{
         res.status(500).send("Error fetching orders")
     }
 }
+
+const dateFilter = async (req, res) => {
+    const start = req.params.start;
+    const end = req.params.end;
+
+    let query = {};
+
+    if (start && end) {
+        console.log('hello');
+        query.orderDate = { $gte:start,
+        $lt:end };
+    }
+
+    try {
+        const orders = await Order.find(query)
+            .populate("user")
+            .populate({
+                path: "address",
+                model: "Address"
+            })
+            .populate({
+                path: "items.product",
+                model: "Product"
+            })
+            .sort({ orderDate: -1 });
+
+            console.log(orders,"aaaaaaaaaaaaaa");
+
+        const totalRevanue = orders.reduce((acc, order) => acc + order.totalAmount, 0);
+        const totalSales = orders.length;
+        const totalProductSold = orders.reduce((acc, order) => acc + order.items.length, 0);
+
+        const filteredOrders = orders.filter(order => {
+            const orderDate = new Date(order.orderDate).toLocaleDateString();
+            const deliveryDate = new Date(order.deliveryDate).toLocaleDateString();
+        
+            // Check if orderDate is greater than or equal to start
+            // and deliveryDate is less than or equal to end
+            return orderDate >= start && deliveryDate <= end;
+        });
+        
+
+       
+
+        res.status(200).json({ success: true, totalProductSold, totalSales, totalRevanue, orders, message: "return successfully" });
+
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+        res.status(500).json({ success: false, error: "Error fetching orders" });
+    }
+};
 const downloadPdf = ()=>{
     const pdfPath = path.join(_dirname,'path/to/your/pdf.pdf')
     fs.readFile(pdfPath,(err,data)=>{
@@ -116,6 +167,7 @@ module.exports = {
     orderStatusUpdate,
     orderDetails,
     loadSalesReport,
-    downloadPdf
+    downloadPdf,
+    dateFilter
 
 }

@@ -5,6 +5,7 @@ const Category = require('../../models/categoryModel')
 const message = require('../../config/nodemailer')
 const Address = require('../../models/addressModel')
 const Order = require('../../models/orderModel') 
+const Banner = require('../../models/bannerModel')
 
 const securePassword = async (password)=>{
     try {
@@ -306,7 +307,8 @@ const walletHistory = async (req,res)=>{
 }
 const loadHome=async (req,res)=>{
     try {
-        res.render('user/home')
+        const banner = await Banner.find()
+        res.render('user/home',{banner})
     } catch (error) {
         console.log(error.msg);
     }
