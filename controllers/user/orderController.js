@@ -33,6 +33,9 @@ const loadChekout = async (req, res) => {
         }
 
         const cartItems = cart.items || [];
+        if(cartItems.product=='undefined'){
+            res.redirect('/shop')
+        }
         
         // Validate quantity against product stock
         const invalidItems = cartItems.filter(item => item.quantity > item.product.stock);
