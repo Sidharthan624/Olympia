@@ -33,9 +33,7 @@ const loadChekout = async (req, res) => {
         }
 
         const cartItems = cart.items || [];
-        if(cartItems.product==undefined){
-            res.redirect('/shop')
-        }
+        
         
         // Validate quantity against product stock
         const invalidItems = cartItems.filter(item => item.quantity > item.product.stock);
@@ -55,16 +53,19 @@ const loadChekout = async (req, res) => {
         const subtotalWithShipping = subtotal;
         const addressData = await Address.find({ user: userId });
         const coupon = await Coupon.findOne({ appliedUsers: userId });
+        
+            res.render("user/checkout", {
+                userData,
+                addressData,
+                cart: cartItems,
+                productTotal,
+                subtotalWithShipping,
+                coupon,
+                oldPrice,
+            });
+        
 
-        res.render("user/checkout", {
-            userData,
-            addressData,
-            cart: cartItems,
-            productTotal,
-            subtotalWithShipping,
-            coupon,
-            oldPrice,
-        });
+       
 
     } catch (error) {
         console.error("Error fetching user data and address", error);

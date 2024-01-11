@@ -1,5 +1,5 @@
 <%- include('../layout/userHeader.ejs') %>
-
+<% if (cart && cart.length > 0 && cart[0]) { %>
     <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -310,6 +310,13 @@
         </section>
     </main>
 
+ 
+<% }else{%>
+    <div class="h-100"><h6>cart is empty</h6></div>
+
+<%} %>
+
+    
     
 
 
