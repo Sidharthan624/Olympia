@@ -46,7 +46,7 @@ app.use('/admin',adminRoute)
 
 // Error route for undefined routes:
 app.get('*', (req, res) => {
-  res.status(404).send('Page not found');
+  res.render('user/error')
 });
 
 // userRoute.get('*', (req, res) => {

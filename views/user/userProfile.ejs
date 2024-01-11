@@ -141,15 +141,12 @@
                                                   <h5> <%=user.name%> </h5>
                                                 </figcaption>
                                                 <div class="my-2">
-                                                    <a href="/walletHistory">
-                                                        <p>Wallet Balance</p>
-                                                    <i class="fa-solid fa-wallet"></i>
-                                                
-                                                Rs.<%=user.walletBalance%></a>
-                                                    
-                                                    
-                                                    
-                                                    </div>
+  <a href="/walletHistory">
+    <p>Wallet Balance</p>
+    <i class="fa-solid fa-wallet"></i>
+    Rs.<%= Math.round(user.walletBalance) %></a>
+</div>
+
                                               </figure>
                                               
                                         </aside>
