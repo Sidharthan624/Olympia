@@ -45,13 +45,13 @@ app.use('/admin',adminRoute)
 
 
 // Error route for undefined routes:
-adminRoute.get('*', (req, res) => {
+app.get('*', (req, res) => {
   res.status(404).send('Page not found');
 });
 
-userRoute.get('*', (req, res) => {
-  res.status(404).send('Page not found');
-});
+// userRoute.get('*', (req, res) => {
+//   res.status(404).send('Page not found');
+// });
 
 
 
