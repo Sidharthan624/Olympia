@@ -33,7 +33,7 @@ const loadChekout = async (req, res) => {
         }
 
         const cartItems = cart.items || [];
-        if(cartItems.product=='undefined'){
+        if(cartItems.product==undefined){
             res.redirect('/shop')
         }
         
